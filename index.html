@@ -3,37 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Happy Rose Day 💖</title>
-
 <style>
     body {
         margin: 0;
-        overflow: hidden;
-        background: #1a001a; /* dark romantic background */
+        padding: 0;
         font-family: 'Georgia', serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #dc143c; /* deep crimson to match bridge */
+        overflow: hidden;
+
+        /* Background image with blur-to-sharp transition */
+        background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
+        filter: blur(20px);
+        opacity: 0;
+        transform: scale(1.2);
+        transition: filter 2s ease, opacity 2s ease, transform 2s ease;
     }
 
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: -1;
+    body.loaded {
+        filter: blur(0);
+        opacity: 1;
+        transform: scale(1);
     }
 
     .message {
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: #ff0066; /* cranberry shade */
-        font-size: 40px;
-        text-shadow: 0 0 12px rgba(0,0,0,0.6);
-        animation: fadeIn 2s ease forwards;
+        font-size: 90px; /* bigger and bolder */
+        font-weight: 900;
+        text-shadow: 0 0 25px rgba(0,0,0,0.6); /* pop against greenery */
     }
 
     .sub {
-        font-size: 22px;
-        margin-top: 10px;
+        font-size: 40px;
+        margin-top: 20px;
+        text-shadow: 0 0 15px rgba(0,0,0,0.6);
     }
 
     .tap {
@@ -43,93 +49,35 @@
         text-align: center;
         color: white;
         opacity: 0.8;
-        font-size: 14px;
-    }
-
-    @keyframes fadeIn {
-        0% { opacity: 0; transform: translate(-50%, -60%); }
-        100% { opacity: 1; transform: translate(-50%, -50%); }
+        font-size: 18px;
+        font-weight: bold;
     }
 </style>
 </head>
-
 <body>
 
-<canvas id="canvas"></canvas>
-
 <div class="message">
-    Happy Rose Day<br>
+    Happy Rose Day 💖<br>
     my dumdum 🌹
-    <div class="sub">i love youuuuu 💖</div>
+    <div class="sub">I love youuuuu 💖</div>
 </div>
 
-<div class="tap">tap anywhere to start the music 🎶</div>
+<div class="tap">Tap anywhere to start the music 🎶</div>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
-    <source src="So This Is Love.mp3"type="audio/mpeg">
+    <source src="So This Is Love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
 
-const img = new Image();
-img.src = "WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg"; // Replace with your image
-
-let pixelSize = 50;
-let scale, w, h, x, y;
-
-function calculateImage() {
-    scale = Math.max(canvas.width / img.width, canvas.height / img.height);
-    w = img.width * scale;
-    h = img.height * scale;
-    x = (canvas.width - w) / 2;
-    y = (canvas.height - h) / 2;
-}
-
-img.onload = () => {
-    calculateImage();
-    drawPixelated();
-};
-
-function drawPixelated() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    ctx.drawImage(img, x, y, w, h);
-
-    for (let yy = 0; yy < canvas.height; yy += pixelSize) {
-        for (let xx = 0; xx < canvas.width; xx += pixelSize) {
-            const pixel = ctx.getImageData(xx, yy, 1, 1).data;
-            ctx.fillStyle = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
-            ctx.fillRect(xx, yy, pixelSize, pixelSize);
-        }
-    }
-
-    if (pixelSize > 1) {
-        pixelSize -= 0.4;
-        requestAnimationFrame(drawPixelated);
-    }
-}
-
-// Play music on first tap
-document.body.addEventListener("click", () => {
+document.body.addEventListener('click', () => {
     document.getElementById("bgMusic").play();
     document.querySelector(".tap").style.display = "none";
 }, { once: true });
-
-// Resize handling
-window.onresize = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    calculateImage();
-    pixelSize = 50; // reset pixel animation
-    drawPixelated();
-};
 </script>
 
 </body>
 </html>
-
