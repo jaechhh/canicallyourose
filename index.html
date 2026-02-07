@@ -12,10 +12,6 @@ html, body {
     font-family: 'Georgia', serif;
     overflow: hidden;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 /* Background */
@@ -49,7 +45,7 @@ body::before {
     z-index:0;
 }
 
-/* Text message */
+/* Message */
 .message {
     position: relative;
     font-size: 80px;
@@ -58,21 +54,18 @@ body::before {
     color: #f5f5dc;
     text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);
     z-index: 2;
-    animation: textGlow 3s infinite alternate;
     text-align: center;
 }
 
-.sub {
-    font-size: 36px;
-    margin-top: 20px;
+/* Score */
+#scoreBoard {
     color: #f5f5dc;
-    text-shadow: 0 0 10px #ff0000,0 0 20px rgba(255,0,0,0.7),0 0 30px rgba(0,0,0,0.5);
-}
-
-@keyframes textGlow {
-    0% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
-    50% { text-shadow: 0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px #ff6666,0 0 50px rgba(0,0,0,0.5);}
-    100% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
+    font-size: 30px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    text-shadow: 0 0 10px red;
+    z-index: 5;
 }
 
 /* Tap message */
@@ -89,26 +82,7 @@ body::before {
     opacity:0.9;
 }
 
-/* Flowers and petals */
-.flower, .pet {
-    position: absolute;
-}
-
-/* Bloom animation */
-@keyframes bloom {
-    0% { transform: scale(0) rotate(-30deg); opacity:0; }
-    50% { transform: scale(0.7) rotate(0deg); opacity:0.7; }
-    100% { transform: scale(1) rotate(0deg); opacity:1; }
-}
-
-/* Float animation */
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg);}
-    50% { transform: translateY(-50px) rotate(15deg);}
-    100% { transform: translateY(0) rotate(-15deg);}
-}
-
-/* Falling petals game */
+/* Falling petals */
 .fallingPetal {
     position: absolute;
     width: 20px;
@@ -121,7 +95,17 @@ body::before {
     clip-path: ellipse(50% 70% at 50% 50%);
 }
 
-/* Heart burst petals */
+/* Big heart burst container */
+#bigHeartBurst {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0; left:0;
+    pointer-events: none;
+    z-index:4;
+}
+
+/* Heart petals */
 .heartPetal {
     position: absolute;
     width: 20px;
@@ -132,25 +116,6 @@ body::before {
     pointer-events: none;
     opacity: 1;
 }
-
-/* Big heart burst container */
-#bigHeartBurst {
-    position: absolute;
-    width: 100%; height: 100%;
-    left: 0;
-    top: 0;
-    pointer-events: none;
-    z-index:3;
-}
-
-/* Score */
-#scoreBoard {
-    color: #f5f5dc;
-    font-size: 30px;
-    margin-top: 10px;
-    text-shadow: 0 0 10px red;
-    z-index: 2;
-}
 </style>
 </head>
 <body>
@@ -158,7 +123,6 @@ body::before {
 <div class="message">
     Happy Rose Day 🌹<br>
     my dumdum 💖
-    <div class="sub">I love youuuuu 💖</div>
 </div>
 
 <div id="scoreBoard">Score: 0</div>
@@ -178,45 +142,6 @@ document.body.addEventListener('click', () => {
     music.play().catch(()=>{});
     document.querySelector('.tap').style.display = 'none';
 }, { once: true });
-
-// Load background flowers and floating petals
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-    createFlowers();
-    createFloatingPetals();
-    startGame();
-});
-
-// Flowers
-function createFlowers(){
-    for(let i=0;i<3;i++){
-        let flower = document.createElement('div');
-        flower.classList.add('flower');
-        flower.style.left = `${i*120}px`;
-        flower.style.bottom = '0px';
-        flower.style.animation = `bloom 2s forwards ease-out ${i+1}s`;
-        for(let j=0;j<5;j++){
-            let petal = document.createElement('div');
-            petal.classList.add('pet');
-            petal.style.transform = `rotate(${j*72}deg) translateY(-20px)`;
-            flower.appendChild(petal);
-        }
-        document.body.appendChild(flower);
-        setTimeout(()=>{ flower.style.animation = 'floatUp 5s infinite ease-in-out'; }, (i+1)*1000);
-    }
-}
-
-// Floating petals
-function createFloatingPetals(){
-    for(let i=0;i<15;i++){
-        let petal = document.createElement('div');
-        petal.classList.add('pet');
-        petal.style.left = Math.random()*window.innerWidth+'px';
-        petal.style.bottom = Math.random()*window.innerHeight+'px';
-        petal.style.animation = `floatUp ${3+Math.random()*3}s infinite ease-in-out ${Math.random()*5}s`;
-        document.body.appendChild(petal);
-    }
-}
 
 // Falling petals game
 function startGame(){
@@ -240,12 +165,13 @@ function startGame(){
         }
         fall();
 
+        // Tap to catch petals
         petal.addEventListener('click', () => {
             score++;
             document.getElementById('scoreBoard').innerText = 'Score: ' + score;
 
-            // Trigger big heart burst every 10 petals
-            if(score % 10 === 0){
+            // Trigger big heart burst every 5 petals
+            if(score % 5 === 0){
                 triggerBigHeartBurst();
             }
 
@@ -256,46 +182,51 @@ function startGame(){
     setInterval(createFallingPetal, 800);
 }
 
-// Big heart burst animation
+// Big heart burst
 function triggerBigHeartBurst(){
     const container = document.getElementById('bigHeartBurst');
-    container.innerHTML = ''; // clear previous burst
+    container.innerHTML = ''; // clear old burst
 
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    // Create petals forming a heart shape
-    for(let i=0;i<80;i++){
+    for(let i=0;i<100;i++){
         let petal = document.createElement('div');
         petal.classList.add('heartPetal');
         container.appendChild(petal);
 
-        // Heart parametric formula: x = 16 sin^3(t), y = 13 cos(t) - 5 cos(2t) -2 cos(3t) - cos(4t)
-        let t = Math.PI * (Math.random() * 2 -1); // random angle
+        // Heart shape param
+        let t = Math.random()*Math.PI*2;
         let scale = 15 + Math.random()*10;
         let x = scale * 16 * Math.pow(Math.sin(t),3);
         let y = -scale * (13*Math.cos(t) -5*Math.cos(2*t) -2*Math.cos(3*t) -Math.cos(4*t));
 
-        petal.style.left = (centerX + x) + 'px';
-        petal.style.top = (centerY + y) + 'px';
+        petal.style.left = centerX + x + 'px';
+        petal.style.top = centerY + y + 'px';
 
-        // Animate petals flying outward
-        let angle = Math.random() * 2 * Math.PI;
+        // Animate outward
+        let angle = Math.random()*2*Math.PI;
         let distance = 150 + Math.random()*300;
-        let dx = Math.cos(angle) * distance;
-        let dy = Math.sin(angle) * distance;
+        let dx = Math.cos(angle)*distance;
+        let dy = Math.sin(angle)*distance;
 
         petal.animate([
             { transform: `translate(0,0) scale(1)`, opacity:1 },
             { transform: `translate(${dx}px, ${dy}px) scale(1.2)`, opacity:0 }
         ],{
             duration: 1800 + Math.random()*500,
-            easing: 'ease-out'
+            easing:'ease-out'
         });
 
         setTimeout(()=>{ petal.remove(); }, 2000);
     }
 }
+
+// Initialize
+window.addEventListener('load', ()=>{
+    document.body.classList.add('loaded');
+    startGame();
+});
 </script>
 </body>
 </html>
