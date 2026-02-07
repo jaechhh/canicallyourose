@@ -16,35 +16,35 @@
         overflow: hidden;
         position: relative;
 
-        /* Background image with brighter filter */
+        /* Background image */
         background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
-        filter: blur(20px) brightness(0.65); /* brighter now */
+        filter: blur(20px) brightness(0.7);
         opacity: 0;
         transform: scale(1.2);
         transition: filter 2s ease, opacity 2s ease, transform 2s ease;
     }
 
     body.loaded {
-        filter: blur(0) brightness(0.75); /* brighter after load */
         opacity: 1;
         transform: scale(1);
-        animation: pulse 6s infinite alternate;
+        animation: bgPulse 6s infinite alternate;
     }
 
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.02); }
-        100% { transform: scale(1); }
+    /* Background gentle brightness pulse */
+    @keyframes bgPulse {
+        0% { filter: blur(0) brightness(0.7); }
+        50% { filter: blur(0) brightness(0.8); }
+        100% { filter: blur(0) brightness(0.7); }
     }
 
-    /* Dark overlay for readability (keep it subtle) */
+    /* Dark overlay for text readability */
     body::before {
         content: '';
         position: absolute;
         top: 0; left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.35); /* slightly lighter overlay */
+        background: rgba(0,0,0,0.35);
         z-index: 0;
     }
 
@@ -93,11 +93,12 @@
         width: 0;
         height: 0;
         opacity: 0;
-        background: url('flower.png') no-repeat center/contain;
-        animation: bloom 3s forwards ease-out 1s;
+        background: url('pngtree-pink-peony-flower-transparency-background-floral-object-png-image_12382041.png') no-repeat center/contain;
+        animation: bloom 3s forwards ease-out 1s, floatUp 6s infinite alternate 4s;
         z-index: 2;
     }
 
+    /* Bloom effect */
     @keyframes bloom {
         0% {
             width: 0;
@@ -118,13 +119,20 @@
             transform: rotate(0deg);
         }
     }
+
+    /* Gentle floating animation */
+    @keyframes floatUp {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0); }
+    }
 </style>
 </head>
 <body>
 
 <div class="message">
-    Happy Rose Day 💖<br>
-    my dumdum 🌹
+    Happy Rose Day 🌹<br>
+    my dumdum 💖
     <div class="sub">I love youuuuu 💖</div>
 </div>
 
