@@ -4,128 +4,118 @@
 <meta charset="UTF-8">
 <title>Happy Rose Day 💖</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Georgia', serif;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        overflow: hidden;
-        position: relative;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
 
-        /* Background image */
-        background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
-        filter: blur(20px) brightness(0.7);
-        opacity: 0;
-        transform: scale(1.2);
-        transition: filter 2s ease, opacity 2s ease, transform 2s ease;
-    }
+    /* Background */
+    background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
+    filter: blur(20px) brightness(0.7);
+    opacity: 0;
+    transform: scale(1.2);
+    transition: opacity 2s ease, transform 2s ease;
+}
 
-    body.loaded {
-        opacity: 1;
-        transform: scale(1);
-        animation: bgPulse 6s infinite alternate;
-    }
+body.loaded {
+    opacity: 1;
+    transform: scale(1);
+    animation: bgPulse 6s infinite alternate;
+}
 
-    /* Background gentle brightness pulse */
-    @keyframes bgPulse {
-        0% { filter: blur(0) brightness(0.7); }
-        50% { filter: blur(0) brightness(0.8); }
-        100% { filter: blur(0) brightness(0.7); }
-    }
+@keyframes bgPulse {
+    0% { filter: blur(0) brightness(0.7); }
+    50% { filter: blur(0) brightness(0.8); }
+    100% { filter: blur(0) brightness(0.7); }
+}
 
-    /* Dark overlay for text readability */
-    body::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.35);
-        z-index: 0;
-    }
+/* Overlay */
+body::before {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.35);
+    z-index:0;
+}
 
-    .message {
-        position: relative;
-        font-size: 80px;
-        font-weight: 900;
-        line-height: 1.2;
-        color: #f5f5dc; /* Beige text */
-        text-shadow: 
-            0 0 10px #ff0000,
-            0 0 20px #ff0000,
-            0 0 30px #ff0000,
-            0 0 40px rgba(0,0,0,0.5);
-        z-index: 1;
-    }
+.message {
+    position: relative;
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1.2;
+    color: #f5f5dc; /* Beige text */
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px rgba(0,0,0,0.5);
+    z-index: 1;
+    animation: textGlow 3s infinite alternate;
+}
 
-    .sub {
-        font-size: 36px;
-        margin-top: 20px;
-        color: #f5f5dc;
-        text-shadow: 
-            0 0 10px #ff0000,
-            0 0 20px rgba(255,0,0,0.7),
-            0 0 30px rgba(0,0,0,0.5);
-    }
+.sub {
+    font-size: 36px;
+    margin-top: 20px;
+    color: #f5f5dc;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255,0,0,0.7), 0 0 30px rgba(0,0,0,0.5);
+}
 
-    .tap {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-        font-weight: bold;
-        text-shadow: 0 0 10px black;
-        z-index: 1;
-        opacity: 0.9;
-    }
+@keyframes textGlow {
+    0% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
+    50% { text-shadow: 0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px #ff6666,0 0 50px rgba(0,0,0,0.5);}
+    100% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
+}
 
-    /* Flower bloom animation */
-    .flower {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 0;
-        opacity: 0;
-        background: url('pngtree-pink-peony-flower-transparency-background-floral-object-png-image_12382041.png') no-repeat center/contain;
-        animation: bloom 3s forwards ease-out 1s, floatUp 6s infinite alternate 4s;
-        z-index: 2;
-    }
+.tap {
+    position: absolute;
+    bottom:30px;
+    width:100%;
+    text-align:center;
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
+    z-index:1;
+    opacity:0.9;
+}
 
-    /* Bloom effect */
-    @keyframes bloom {
-        0% {
-            width: 0;
-            height: 0;
-            opacity: 0;
-            transform: rotate(-45deg);
-        }
-        50% {
-            width: 50px;
-            height: 50px;
-            opacity: 0.7;
-            transform: rotate(0deg);
-        }
-        100% {
-            width: 100px;
-            height: 100px;
-            opacity: 1;
-            transform: rotate(0deg);
-        }
-    }
+/* CSS Flower */
+.flower {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index:2;
+}
 
-    /* Gentle floating animation */
-    @keyframes floatUp {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-        100% { transform: translateY(0); }
-    }
+.pet {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff3399; /* red petals */
+    border-radius: 50%;
+    transform-origin: bottom center;
+}
+
+/* Bloom animation */
+@keyframes bloom {
+    0% { transform: scale(0) rotate(-30deg); opacity:0; }
+    50% { transform: scale(0.7) rotate(0deg); opacity:0.7; }
+    100% { transform: scale(1) rotate(0deg); opacity:1; }
+}
+
+/* Floating animation */
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg);}
+    50% { transform: translateY(-50px) rotate(15deg);}
+    100% { transform: translateY(0) rotate(-15deg);}
+}
 </style>
 </head>
 <body>
@@ -138,22 +128,56 @@
 
 <div class="tap">Tap anywhere to start the music 🎶</div>
 
-<!-- Flower image -->
-<div class="flower"></div>
-
+<!-- Multiple flowers will be created by JS -->
 <audio id="bgMusic" loop>
     <source src="So This Is Love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+// Trigger background animation
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+
+    // Create 3 flowers from bottom-left
+    for(let i=0;i<3;i++){
+        let flower = document.createElement('div');
+        flower.classList.add('flower');
+        flower.style.left = `${i*120}px`;
+        flower.style.animation = `bloom 2s forwards ease-out ${i+1}s`;
+        
+        // Create petals (5 per flower)
+        for(let j=0;j<5;j++){
+            let petal = document.createElement('div');
+            petal.classList.add('pet');
+            let angle = j*72; // 5 petals in a circle
+            petal.style.transform = `rotate(${angle}deg) translateY(-20px)`;
+            flower.appendChild(petal);
+        }
+        document.body.appendChild(flower);
+
+        // Floating animation after bloom
+        setTimeout(()=>{
+            flower.style.animation = 'floatUp 5s infinite ease-in-out';
+        },(i+1)*1000);
+    }
+
+    // Optional: random small floating petals
+    for(let i=0;i<10;i++){
+        let petal = document.createElement('div');
+        petal.classList.add('pet');
+        petal.style.left = Math.random()*window.innerWidth+'px';
+        petal.style.bottom = Math.random()*50+'px';
+        petal.style.animation = `floatUp ${3+Math.random()*3}s infinite ease-in-out ${Math.random()*5}s`;
+        document.body.appendChild(petal);
+    }
 });
 
-document.body.addEventListener('click', () => {
-    document.getElementById("bgMusic").play();
-    document.querySelector(".tap").style.display = "none";
-}, { once: true });
+// Play music on tap
+document.body.addEventListener('click',()=>{
+    let music=document.getElementById("bgMusic");
+    music.play();
+    document.querySelector(".tap").style.display="none";
+},{once:true});
 </script>
 
 </body>
