@@ -45,19 +45,23 @@ body::before {
     z-index:0;
 }
 
-/* Centered message */
+/* Centered message in two lines */
 .centeredMessage {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 80px;
+    font-size: 70px;
     font-weight: 900;
     line-height: 1.2;
     color: #f5f5dc;
     text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);
     z-index: 2;
     text-align: center;
+}
+
+.centeredMessage span {
+    display: block; /* ensures each line is separated */
 }
 
 /* Score top-left */
@@ -124,8 +128,8 @@ body::before {
 <body>
 
 <div class="centeredMessage">
-    Happy Rose Day 🌹<br>
-    my dumdum 💖
+    <span>Happy Rose Day 🌹</span>
+    <span>my dumdum 💖</span>
 </div>
 
 <div id="scoreBoard">Score: 0</div>
@@ -185,7 +189,7 @@ function startGame(){
     setInterval(createFallingPetal, 800);
 }
 
-// Big heart burst
+// Big heart burst (full-screen)
 function triggerBigHeartBurst(){
     const container = document.getElementById('bigHeartBurst');
     container.innerHTML = ''; // clear old burst
@@ -193,35 +197,35 @@ function triggerBigHeartBurst(){
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    for(let i=0;i<100;i++){
+    for(let i=0;i<200;i++){ // more petals
         let petal = document.createElement('div');
         petal.classList.add('heartPetal');
         container.appendChild(petal);
 
         // Heart shape param
         let t = Math.random()*Math.PI*2;
-        let scale = 15 + Math.random()*10;
+        let scale = 20 + Math.random()*15; // larger scale
         let x = scale * 16 * Math.pow(Math.sin(t),3);
         let y = -scale * (13*Math.cos(t) -5*Math.cos(2*t) -2*Math.cos(3*t) -Math.cos(4*t));
 
         petal.style.left = centerX + x + 'px';
         petal.style.top = centerY + y + 'px';
 
-        // Animate outward
+        // Animate outward to fill whole screen
         let angle = Math.random()*2*Math.PI;
-        let distance = 150 + Math.random()*300;
+        let distance = Math.max(window.innerWidth, window.innerHeight) / 2 + Math.random()*200; // reach edges
         let dx = Math.cos(angle)*distance;
         let dy = Math.sin(angle)*distance;
 
         petal.animate([
             { transform: `translate(0,0) scale(1)`, opacity:1 },
-            { transform: `translate(${dx}px, ${dy}px) scale(1.2)`, opacity:0 }
+            { transform: `translate(${dx}px, ${dy}px) scale(1.5)`, opacity:0 }
         ],{
-            duration: 1800 + Math.random()*500,
+            duration: 2000 + Math.random()*500,
             easing:'ease-out'
         });
 
-        setTimeout(()=>{ petal.remove(); }, 2000);
+        setTimeout(()=>{ petal.remove(); }, 2500);
     }
 }
 
