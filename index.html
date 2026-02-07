@@ -4,19 +4,22 @@
 <meta charset="UTF-8">
 <title>Happy Rose Day 💖</title>
 <style>
-body {
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
     font-family: 'Georgia', serif;
-    height: 100vh;
+    overflow: hidden;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    overflow: hidden;
-    position: relative;
+    flex-direction: column;
+}
 
-    /* Background */
+/* Background */
+body {
     background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
     filter: blur(20px) brightness(0.7);
     opacity: 0;
@@ -39,29 +42,31 @@ body.loaded {
 /* Overlay */
 body::before {
     content: '';
-    position: absolute;
+    position: fixed;
     top:0; left:0;
     width:100%; height:100%;
     background: rgba(0,0,0,0.35);
     z-index:0;
 }
 
+/* Text message */
 .message {
     position: relative;
     font-size: 80px;
     font-weight: 900;
     line-height: 1.2;
-    color: #f5f5dc; /* Beige text */
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px rgba(0,0,0,0.5);
-    z-index: 1;
+    color: #f5f5dc;
+    text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);
+    z-index: 2;
     animation: textGlow 3s infinite alternate;
+    text-align: center;
 }
 
 .sub {
     font-size: 36px;
     margin-top: 20px;
     color: #f5f5dc;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px rgba(255,0,0,0.7), 0 0 30px rgba(0,0,0,0.5);
+    text-shadow: 0 0 10px #ff0000,0 0 20px rgba(255,0,0,0.7),0 0 30px rgba(0,0,0,0.5);
 }
 
 @keyframes textGlow {
@@ -70,35 +75,15 @@ body::before {
     100% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
 }
 
-.tap {
+/* Floating petals and flowers */
+.flower, .pet {
     position: absolute;
-    bottom:30px;
-    width:100%;
-    text-align:center;
-    color:#fff;
-    font-size:20px;
-    font-weight:bold;
-    text-shadow:0 0 10px black;
-    z-index:1;
-    opacity:0.9;
-}
-
-/* CSS Flower */
-.flower {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    z-index:2;
 }
 
 .pet {
-    position: absolute;
     width: 20px;
     height: 20px;
-    background: #ff3399; /* red petals */
+    background: #ff3399;
     border-radius: 50%;
     transform-origin: bottom center;
 }
@@ -110,11 +95,44 @@ body::before {
     100% { transform: scale(1) rotate(0deg); opacity:1; }
 }
 
-/* Floating animation */
+/* Float animation */
 @keyframes floatUp {
     0% { transform: translateY(0) rotate(0deg);}
     50% { transform: translateY(-50px) rotate(15deg);}
     100% { transform: translateY(0) rotate(-15deg);}
+}
+
+/* Falling petals for game */
+.fallingPetal {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: #ff3399;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+    pointer-events: auto;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hearts burst */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    border-radius: 5px;
+    z-index:4;
+    opacity: 1;
+}
+#scoreBoard {
+    color: #f5f5dc;
+    font-size: 30px;
+    margin-top: 10px;
+    text-shadow: 0 0 10px red;
+    z-index: 2;
 }
 </style>
 </head>
@@ -126,59 +144,121 @@ body::before {
     <div class="sub">I love youuuuu 💖</div>
 </div>
 
-<div class="tap">Tap anywhere to start the music 🎶</div>
+<div id="scoreBoard">Score: 0</div>
 
-<!-- Multiple flowers will be created by JS -->
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop autoplay>
     <source src="So This Is Love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Trigger background animation
+// Background flowers and floating petals
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
+    createFlowers();
+    createFloatingPetals();
+    startGame();
+});
 
-    // Create 3 flowers from bottom-left
+// Music autoplay
+const music = document.getElementById("bgMusic");
+music.play().catch(()=>{});
+
+// Score
+let score = 0;
+
+// Create flowers
+function createFlowers(){
     for(let i=0;i<3;i++){
         let flower = document.createElement('div');
         flower.classList.add('flower');
         flower.style.left = `${i*120}px`;
+        flower.style.bottom = '0px';
         flower.style.animation = `bloom 2s forwards ease-out ${i+1}s`;
-        
-        // Create petals (5 per flower)
         for(let j=0;j<5;j++){
             let petal = document.createElement('div');
             petal.classList.add('pet');
-            let angle = j*72; // 5 petals in a circle
-            petal.style.transform = `rotate(${angle}deg) translateY(-20px)`;
+            petal.style.transform = `rotate(${j*72}deg) translateY(-20px)`;
             flower.appendChild(petal);
         }
         document.body.appendChild(flower);
-
-        // Floating animation after bloom
-        setTimeout(()=>{
-            flower.style.animation = 'floatUp 5s infinite ease-in-out';
-        },(i+1)*1000);
+        setTimeout(()=>{ flower.style.animation = 'floatUp 5s infinite ease-in-out'; }, (i+1)*1000);
     }
+}
 
-    // Optional: random small floating petals
-    for(let i=0;i<10;i++){
+// Floating petals background
+function createFloatingPetals(){
+    for(let i=0;i<15;i++){
         let petal = document.createElement('div');
         petal.classList.add('pet');
         petal.style.left = Math.random()*window.innerWidth+'px';
-        petal.style.bottom = Math.random()*50+'px';
+        petal.style.bottom = Math.random()*window.innerHeight+'px';
         petal.style.animation = `floatUp ${3+Math.random()*3}s infinite ease-in-out ${Math.random()*5}s`;
         document.body.appendChild(petal);
     }
-});
+}
 
-// Play music on tap
-document.body.addEventListener('click',()=>{
-    let music=document.getElementById("bgMusic");
-    music.play();
-    document.querySelector(".tap").style.display="none";
-},{once:true});
+// Game: falling petals
+function startGame(){
+    function createFallingPetal(){
+        let petal = document.createElement('div');
+        petal.classList.add('fallingPetal');
+        petal.style.left = Math.random() * (window.innerWidth - 25) + 'px';
+        petal.style.top = '-30px';
+        document.body.appendChild(petal);
+
+        let speed = 1 + Math.random()*2;
+        function fall(){
+            let top = parseFloat(petal.style.top);
+            if(top < window.innerHeight){
+                petal.style.top = top + speed + 'px';
+                requestAnimationFrame(fall);
+            } else {
+                petal.remove();
+            }
+        }
+        fall();
+
+        petal.addEventListener('click',()=>{
+            score++;
+            document.getElementById('scoreBoard').innerText = 'Score: '+score;
+
+            // Check burst at 10 petals
+            if(score % 10 === 0){
+                burstHearts(petal);
+            }
+
+            petal.remove();
+        });
+    }
+
+    setInterval(createFallingPetal, 800);
+}
+
+// Burst hearts animation
+function burstHearts(petal){
+    for(let i=0;i<20;i++){
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = (parseFloat(petal.style.left) + 10)+'px';
+        heart.style.top = (parseFloat(petal.style.top) + 10)+'px';
+
+        let angle = Math.random() * 2 * Math.PI;
+        let distance = 50 + Math.random()*30;
+        let dx = Math.cos(angle) * distance;
+        let dy = Math.sin(angle) * distance;
+        document.body.appendChild(heart);
+
+        heart.animate([
+            { transform: 'translate(0,0) scale(1)', opacity:1 },
+            { transform: `translate(${dx}px, ${dy}px) scale(0.5)`, opacity:0 }
+        ],{
+            duration: 1000 + Math.random()*500,
+            easing: 'ease-out'
+        });
+
+        setTimeout(()=>{ heart.remove(); }, 1500);
+    }
+}
 </script>
-
 </body>
 </html>
