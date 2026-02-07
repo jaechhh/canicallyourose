@@ -5,136 +5,96 @@
 <title>Happy Rose Day 🌹</title>
 
 <style>
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   height: 100vh;
-  background: #f6efe6;
+  background: linear-gradient(#0e3b2e, #145a43);
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Georgia, serif;
-}
-
-.wrapper {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-/* Text */
-.message {
-  font-size: 2.6rem;
-  color: #7a1e1e;
-  font-family: "Brush Script MT", cursive;
-  animation: fadeIn 2.5s ease forwards;
-}
-
-.signature {
-  margin-top: 10px;
-  font-size: 2.8rem;
-  color: #7a1e1e;
   font-family: "Brush Script MT", cursive;
 }
 
-/* Bloom */
+/* 🌹 Floating Roses */
 .rose {
-  animation: bloom 2.5s ease forwards;
-  transform-origin: center;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Rose_red.png/256px-Rose_red.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  animation: float 14s linear infinite;
 }
 
-@keyframes bloom {
-  from { transform: scale(0.4); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* 🌸 Random placement */
+.rose:nth-child(1) { left: 10%; animation-delay: 0s; }
+.rose:nth-child(2) { left: 25%; animation-delay: 3s; }
+.rose:nth-child(3) { left: 40%; animation-delay: 6s; }
+.rose:nth-child(4) { left: 60%; animation-delay: 2s; }
+.rose:nth-child(5) { left: 75%; animation-delay: 5s; }
+.rose:nth-child(6) { left: 90%; animation-delay: 8s; }
+
+/* 💌 Center Message */
+.message-box {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  animation: fadeIn 3s ease forwards;
+}
+
+.message-box h1 {
+  font-size: 3.8rem;
+  margin-bottom: 15px;
+}
+
+.message-box p {
+  font-size: 3rem;
+  opacity: 0.95;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+<!-- Floating Roses -->
+<div class="rose"></div>
+<div class="rose"></div>
+<div class="rose"></div>
+<div class="rose"></div>
+<div class="rose"></div>
+<div class="rose"></div>
 
-<!-- 🌹 REALISTIC ROSE SVG -->
-<svg width="420" height="520" viewBox="0 0 420 520">
-
-  <!-- Rose definition -->
-  <defs>
-    <g id="rose">
-      <path d="M0,-25
-               C18,-30 30,-10 20,0
-               C35,10 20,30 0,25
-               C-20,30 -35,10 -20,0
-               C-30,-10 -18,-30 0,-25Z"
-            fill="#b11226"/>
-      <path d="M0,-18
-               C12,-22 20,-8 12,0
-               C20,8 12,20 0,16
-               C-12,20 -20,8 -12,0
-               C-20,-8 -12,-22 0,-18Z"
-            fill="#cc2a3c"/>
-      <path d="M0,-10
-               C7,-12 12,-5 7,0
-               C12,5 7,12 0,10
-               C-7,12 -12,5 -7,0
-               C-12,-5 -7,-12 0,-10Z"
-            fill="#e85c6a"/>
-    </g>
-  </defs>
-
-  <!-- Heart-shaped bouquet -->
-  <g class="rose" transform="translate(210,150)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(170,180)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(250,180)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(140,220)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(280,220)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(170,260)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(250,260)">
-    <use href="#rose"/>
-  </g>
-  <g class="rose" transform="translate(210,300)">
-    <use href="#rose"/>
-  </g>
-
-  <!-- Leaves -->
-  <g fill="#5c8a5c">
-    <ellipse cx="140" cy="250" rx="16" ry="28" transform="rotate(-30 140 250)"/>
-    <ellipse cx="280" cy="250" rx="16" ry="28" transform="rotate(30 280 250)"/>
-    <ellipse cx="190" cy="330" rx="16" ry="28" transform="rotate(-20 190 330)"/>
-    <ellipse cx="230" cy="330" rx="16" ry="28" transform="rotate(20 230 330)"/>
-  </g>
-
-  <!-- Stems -->
-  <g stroke="#4f7b55" stroke-width="4" stroke-linecap="round">
-    <line x1="200" y1="340" x2="210" y2="460"/>
-    <line x1="220" y1="340" x2="210" y2="460"/>
-    <line x1="180" y1="340" x2="210" y2="460"/>
-    <line x1="240" y1="340" x2="210" y2="460"/>
-  </g>
-
-</svg>
-
-<!-- 💌 Message -->
-<div>
-  <div class="message">Happy Rose Day hon 🌹</div>
-  <div class="signature">Yours dumdum</div>
-</div>
-
+<!-- Message -->
+<div class="message-box">
+  <h1>Happy Rose Day 🌹</h1>
+  <p>Yours dumdum</p>
 </div>
 
 </body>
