@@ -13,27 +13,27 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: #dc143c; /* deep crimson to match bridge */
+        color: #dc143c; /* deep crimson for text */
         overflow: hidden;
 
-        /* Background image with blur-to-sharp transition */
+        /* Background image with blur-to-sharp transition + filter */
         background: url('WhatsApp Image 2026-01-26 at 9.57.58 PM.jpeg') no-repeat center center/cover;
-        filter: blur(20px);
+        filter: blur(20px) brightness(0.8) contrast(1.2) sepia(0.2) saturate(1.3);
         opacity: 0;
         transform: scale(1.2);
         transition: filter 2s ease, opacity 2s ease, transform 2s ease;
     }
 
     body.loaded {
-        filter: blur(0);
+        filter: blur(0) brightness(1) contrast(1) sepia(0) saturate(1);
         opacity: 1;
         transform: scale(1);
     }
 
     .message {
-        font-size: 90px; /* bigger and bolder */
+        font-size: 90px;
         font-weight: 900;
-        text-shadow: 0 0 25px rgba(0,0,0,0.6); /* pop against greenery */
+        text-shadow: 0 0 25px rgba(0,0,0,0.6);
     }
 
     .sub {
@@ -74,10 +74,4 @@ window.addEventListener('load', () => {
 });
 
 document.body.addEventListener('click', () => {
-    document.getElementById("bgMusic").play();
-    document.querySelector(".tap").style.display = "none";
-}, { once: true });
-</script>
-
-</body>
-</html>
+    document.getElementById("bgMusic").play
