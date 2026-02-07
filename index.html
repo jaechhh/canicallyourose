@@ -8,11 +8,11 @@
 body {
   margin: 0;
   height: 100vh;
-  background: #f7f1e8;
+  background: #f6efe6;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Georgia', serif;
+  font-family: Georgia, serif;
 }
 
 .wrapper {
@@ -21,37 +21,30 @@ body {
   gap: 40px;
 }
 
-/* Text message */
+/* Text */
 .message {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   color: #7a1e1e;
-  font-family: 'Brush Script MT', cursive;
-  animation: fadeIn 3s ease forwards;
+  font-family: "Brush Script MT", cursive;
+  animation: fadeIn 2.5s ease forwards;
 }
 
 .signature {
-  text-align: center;
   margin-top: 10px;
   font-size: 2.8rem;
   color: #7a1e1e;
-  font-family: 'Brush Script MT', cursive;
+  font-family: "Brush Script MT", cursive;
 }
 
-/* Bloom animation */
+/* Bloom */
 .rose {
+  animation: bloom 2.5s ease forwards;
   transform-origin: center;
-  animation: bloom 2.5s ease-out forwards;
 }
 
 @keyframes bloom {
-  from {
-    transform: scale(0.3);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
 @keyframes fadeIn {
@@ -65,51 +58,78 @@ body {
 
 <div class="wrapper">
 
-<!-- 🌹 Heart-shaped bouquet -->
+<!-- 🌹 REALISTIC ROSE SVG -->
 <svg width="420" height="520" viewBox="0 0 420 520">
 
+  <!-- Rose definition -->
   <defs>
-    <radialGradient id="roseGrad" cx="50%" cy="40%">
-      <stop offset="0%" stop-color="#f9b5b5"/>
-      <stop offset="100%" stop-color="#c73838"/>
-    </radialGradient>
+    <g id="rose">
+      <path d="M0,-25
+               C18,-30 30,-10 20,0
+               C35,10 20,30 0,25
+               C-20,30 -35,10 -20,0
+               C-30,-10 -18,-30 0,-25Z"
+            fill="#b11226"/>
+      <path d="M0,-18
+               C12,-22 20,-8 12,0
+               C20,8 12,20 0,16
+               C-12,20 -20,8 -12,0
+               C-20,-8 -12,-22 0,-18Z"
+            fill="#cc2a3c"/>
+      <path d="M0,-10
+               C7,-12 12,-5 7,0
+               C12,5 7,12 0,10
+               C-7,12 -12,5 -7,0
+               C-12,-5 -7,-12 0,-10Z"
+            fill="#e85c6a"/>
+    </g>
   </defs>
 
-  <!-- Roses -->
-  <g class="rose" fill="url(#roseGrad)">
-    <!-- Heart shape -->
-    <circle cx="210" cy="120" r="45"/>
-    <circle cx="170" cy="150" r="42"/>
-    <circle cx="250" cy="150" r="42"/>
-
-    <circle cx="140" cy="200" r="40"/>
-    <circle cx="280" cy="200" r="40"/>
-
-    <circle cx="170" cy="250" r="42"/>
-    <circle cx="250" cy="250" r="42"/>
-
-    <circle cx="210" cy="300" r="45"/>
+  <!-- Heart-shaped bouquet -->
+  <g class="rose" transform="translate(210,150)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(170,180)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(250,180)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(140,220)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(280,220)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(170,260)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(250,260)">
+    <use href="#rose"/>
+  </g>
+  <g class="rose" transform="translate(210,300)">
+    <use href="#rose"/>
   </g>
 
   <!-- Leaves -->
-  <g fill="#6f9b6b">
-    <ellipse cx="130" cy="210" rx="18" ry="32" transform="rotate(-30 130 210)"/>
-    <ellipse cx="290" cy="210" rx="18" ry="32" transform="rotate(30 290 210)"/>
-    <ellipse cx="180" cy="330" rx="18" ry="32" transform="rotate(-20 180 330)"/>
-    <ellipse cx="240" cy="330" rx="18" ry="32" transform="rotate(20 240 330)"/>
+  <g fill="#5c8a5c">
+    <ellipse cx="140" cy="250" rx="16" ry="28" transform="rotate(-30 140 250)"/>
+    <ellipse cx="280" cy="250" rx="16" ry="28" transform="rotate(30 280 250)"/>
+    <ellipse cx="190" cy="330" rx="16" ry="28" transform="rotate(-20 190 330)"/>
+    <ellipse cx="230" cy="330" rx="16" ry="28" transform="rotate(20 230 330)"/>
   </g>
 
   <!-- Stems -->
   <g stroke="#4f7b55" stroke-width="4" stroke-linecap="round">
-    <line x1="200" y1="350" x2="200" y2="450"/>
-    <line x1="220" y1="350" x2="210" y2="450"/>
-    <line x1="180" y1="350" x2="200" y2="450"/>
-    <line x1="240" y1="350" x2="210" y2="450"/>
+    <line x1="200" y1="340" x2="210" y2="460"/>
+    <line x1="220" y1="340" x2="210" y2="460"/>
+    <line x1="180" y1="340" x2="210" y2="460"/>
+    <line x1="240" y1="340" x2="210" y2="460"/>
   </g>
 
 </svg>
 
-<!-- 💌 Side message -->
+<!-- 💌 Message -->
 <div>
   <div class="message">Happy Rose Day hon 🌹</div>
   <div class="signature">Yours dumdum</div>
