@@ -2,160 +2,178 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day 💖 my dumdum</title>
+<title>Happy Rose Day</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: #f4efe6; /* beige */
+        height: 100vh;
+        font-family: 'Georgia', serif;
+    }
 
-body {
-  height: 100vh;
-  background: #f5efe6;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Brush Script MT", cursive;
-}
+    /* Center message */
+    .message {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 44px;
+        color: #8b1e3f; /* cranberry */
+        text-align: center;
+        z-index: 10;
+        animation: glow 3s infinite;
+    }
 
-/* 💌 Center text */
-.message {
-  position: absolute;
-  z-index: 10;
-  text-align: center;
-  color: #7b1e3a;
-  animation: fadeIn 3s ease forwards;
-}
+    .sub {
+        font-size: 22px;
+        margin-top: 8px;
+        color: #a32638;
+    }
 
-.message h1 {
-  font-size: 4rem;
-}
+    @keyframes glow {
+        0%,100% { opacity: 0.85; }
+        50% { opacity: 1; }
+    }
 
-.message p {
-  font-size: 3rem;
-  margin-top: 10px;
-}
+    /* Rose */
+    .rose {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        animation: float 9s linear infinite;
+        pointer-events: none;
+    }
 
-/* 🎵 Music Button */
-.music-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #7b1e3a;
-  color: #fff;
-  border: none;
-  padding: 10px 18px;
-  font-size: 18px;
-  border-radius: 30px;
-  cursor: pointer;
-  z-index: 20;
-}
+    .petal {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: radial-gradient(circle at top left,
+            rgba(255,255,255,0.6),
+            var(--roseColor));
+    }
 
-/* ❤️ Heart shape */
-.heart {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background: #b11226;
-  transform: rotate(-45deg);
-  opacity: 0.75;
-  filter: drop-shadow(0 0 6px rgba(177,18,38,0.6));
-  animation: infinityFloat 26s ease-in-out infinite, shimmer 4s ease-in-out infinite;
-}
+    .petal:nth-child(1){top:0;left:8px;}
+    .petal:nth-child(2){left:0;top:8px;}
+    .petal:nth-child(3){right:0;top:8px;}
+    .petal:nth-child(4){bottom:0;left:8px;}
 
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background: #b11226;
-  border-radius: 50%;
-}
+    .center {
+        position: absolute;
+        top: 13px;
+        left: 13px;
+        width: 16px;
+        height: 16px;
+        background: rgba(0,0,0,0.25);
+        border-radius: 50%;
+    }
 
-.heart::before { top: -14px; left: 0; }
-.heart::after { left: 14px; top: 0; }
+    @keyframes float {
+        from {
+            transform: translateY(110vh) rotate(0deg);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(-120vh) rotate(360deg);
+            opacity: 1;
+        }
+    }
 
-/* ✨ Shimmer */
-@keyframes shimmer {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(177,18,38,0.6)); }
-  50% { filter: drop-shadow(0 0 14px rgba(177,18,38,0.9)); }
-}
+    /* Sparkles */
+    .sparkle {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: rgba(255,255,255,0.9);
+        border-radius: 50%;
+        animation: sparkle 3s infinite;
+    }
 
-/* ♾️ Infinity movement */
-@keyframes infinityFloat {
-  0% { transform: translate(-320px, 220px) rotate(-45deg) scale(0.6); opacity: 0; }
-  25% { transform: translate(0, -40px) rotate(-45deg) scale(1); opacity: 0.9; }
-  50% { transform: translate(320px, 220px) rotate(-45deg) scale(0.6); }
-  75% { transform: translate(0, -420px) rotate(-45deg) scale(1); }
-  100% { transform: translate(-320px, -900px) rotate(-45deg) scale(0.4); opacity: 0; }
-}
+    @keyframes sparkle {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0); opacity: 0; }
+    }
 
-/* Spread hearts */
-.heart:nth-child(1) { left: 5%; animation-delay: 0s; }
-.heart:nth-child(2) { left: 15%; animation-delay: 3s; }
-.heart:nth-child(3) { left: 25%; animation-delay: 6s; }
-.heart:nth-child(4) { left: 35%; animation-delay: 9s; }
-.heart:nth-child(5) { left: 45%; animation-delay: 12s; }
-.heart:nth-child(6) { left: 55%; animation-delay: 15s; }
-.heart:nth-child(7) { left: 65%; animation-delay: 18s; }
-.heart:nth-child(8) { left: 75%; animation-delay: 21s; }
-.heart:nth-child(9) { left: 85%; animation-delay: 24s; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
+    /* Music hint */
+    .tap {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
+        color: #8b1e3f;
+        opacity: 0.7;
+        z-index: 10;
+    }
 </style>
 </head>
 
-<body onclick="startMusic()">
+<body>
 
-<!-- ❤️ Hearts -->
-<div class="heart"></div><div class="heart"></div><div class="heart"></div>
-<div class="heart"></div><div class="heart"></div><div class="heart"></div>
-<div class="heart"></div><div class="heart"></div><div class="heart"></div>
-
-<!-- 💌 Message -->
 <div class="message">
-  <h1>Happy Rose Day 🌹</h1>
-  <p>Yours dumdum</p>
+    Happy Rose Day<br>
+    my dumdum 🌹
+    <div class="sub">you make my world bloom 💖</div>
 </div>
 
-<!-- 🎵 Music -->
+<div class="tap">tap anywhere to play music 🎶</div>
+
+<!-- Background Music -->
 <audio id="bgMusic" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8f6b6c1e8c.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music-btn" onclick="toggleMusic(event)">🎵 Play Music</button>
-
 <script>
-const music = document.getElementById("bgMusic");
-const btn = document.querySelector(".music-btn");
-let playing = false;
+    const colors = [
+        "#b1123c", "#ff5c8a", "#ffd1dc",
+        "#f7c948", "#fff1c1", "#c77dff"
+    ];
 
-function startMusic() {
-  if (!playing) {
-    music.play();
-    btn.textContent = "⏸ Pause Music";
-    playing = true;
-  }
-}
+    const totalRoses = 130;
 
-function toggleMusic(e) {
-  e.stopPropagation();
-  if (playing) {
-    music.pause();
-    btn.textContent = "🎵 Play Music";
-  } else {
-    music.play();
-    btn.textContent = "⏸ Pause Music";
-  }
-  playing = !playing;
-}
+    for (let i = 0; i < totalRoses; i++) {
+        const rose = document.createElement("div");
+        rose.className = "rose";
+
+        rose.style.left = Math.random() * window.innerWidth + "px";
+        rose.style.animationDuration = (6 + Math.random() * 6) + "s";
+        rose.style.animationDelay = Math.random() * 5 + "s";
+
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        rose.style.setProperty("--roseColor", color);
+
+        for (let j = 0; j < 4; j++) {
+            const petal = document.createElement("div");
+            petal.className = "petal";
+            rose.appendChild(petal);
+        }
+
+        const center = document.createElement("div");
+        center.className = "center";
+        rose.appendChild(center);
+
+        document.body.appendChild(rose);
+    }
+
+    // Sparkles
+    for (let i = 0; i < 90; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = Math.random() * window.innerWidth + "px";
+        s.style.top = Math.random() * window.innerHeight + "px";
+        s.style.animationDelay = Math.random() * 3 + "s";
+        document.body.appendChild(s);
+    }
+
+    // Play music on first interaction
+    document.body.addEventListener("click", () => {
+        document.getElementById("bgMusic").play();
+        document.querySelector(".tap").style.display = "none";
+    }, { once: true });
 </script>
 
 </body>
