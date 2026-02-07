@@ -8,13 +8,12 @@
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #2b0006, #0a0002);
-  overflow: hidden;
+  background: radial-gradient(circle, #1a0004, #000);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Georgia', serif;
-  perspective: 1400px;
+  overflow: hidden;
 }
 
 /* Layout */
@@ -24,102 +23,130 @@ body {
   gap: 60px;
 }
 
-/* Bouquet container */
+/* Bouquet */
 .bouquet {
   position: relative;
-  width: 500px;
+  width: 420px;
   height: 520px;
-  transform-style: preserve-3d;
-  animation: bloom 3s ease forwards, rotate 25s linear infinite;
-  transform: scale(0);
+  transform: rotate(-5deg);
+  animation: appear 2.5s ease forwards;
 }
 
-@keyframes bloom {
-  to { transform: scale(1); }
+@keyframes appear {
+  from { opacity: 0; transform: scale(0.7) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(-5deg); }
 }
 
-@keyframes rotate {
-  from { transform: rotateY(0deg); }
-  to { transform: rotateY(360deg); }
-}
-
-/* Rose */
+/* Rose (bigger) */
 .rose {
   position: absolute;
-  width: 160px;
-  height: 160px;
-  transform-style: preserve-3d;
+  width: 150px;
+  height: 150px;
 }
 
-/* Petals */
+/* Deep red petals */
 .petal {
   position: absolute;
-  width: 80px;
-  height: 120px;
-  left: 40px;
+  width: 75px;
+  height: 110px;
+  left: 38px;
   top: 20px;
-  background: radial-gradient(circle at top, #ff5c8a, #8a0020);
+  background: radial-gradient(circle at top, #ff2b2b, #7a0000);
   border-radius: 60% 60% 50% 50%;
-  transform-origin: bottom center;
-  box-shadow: 0 0 25px rgba(255, 80, 120, 0.7);
+  box-shadow: 0 0 18px rgba(180, 0, 0, 0.8);
 }
 
-.p1 { transform: rotateY(0deg) translateZ(20px); }
-.p2 { transform: rotateY(60deg) translateZ(30px); }
-.p3 { transform: rotateY(120deg) translateZ(40px); }
-.p4 { transform: rotateY(180deg) translateZ(30px); }
-.p5 { transform: rotateY(240deg) translateZ(20px); }
-.p6 { transform: rotateY(300deg) translateZ(30px); }
+.p1 { transform: rotate(0deg); }
+.p2 { transform: rotate(60deg); }
+.p3 { transform: rotate(120deg); }
+.p4 { transform: rotate(180deg); }
+.p5 { transform: rotate(240deg); }
+.p6 { transform: rotate(300deg); }
 
-/* Bud */
-.bud {
+/* Rose center */
+.center {
   position: absolute;
   width: 50px;
-  height: 70px;
-  left: 55px;
-  top: 45px;
-  background: radial-gradient(circle at top, #ff8fab, #7a0018);
+  height: 50px;
+  background: radial-gradient(circle, #ff6a6a, #8b0000);
   border-radius: 50%;
-  transform: translateZ(50px);
-  box-shadow: 0 0 30px rgba(255, 100, 140, 0.9);
+  top: 50px;
+  left: 50px;
 }
 
 /* Stem */
 .stem {
   position: absolute;
-  width: 10px;
-  height: 200px;
+  width: 8px;
+  height: 260px;
   background: linear-gradient(#2e8b57, #0b3d24);
-  left: 75px;
-  top: 130px;
-  border-radius: 10px;
+  top: 140px;
+  left: 71px;
 }
 
-/* Bouquet positioning */
-.r1 { left: 170px; top: 20px; }
-.r2 { left: 80px; top: 100px; }
-.r3 { left: 260px; top: 100px; }
-.r4 { left: 30px; top: 200px; }
-.r5 { left: 330px; top: 200px; }
+/* Leaves */
+.leaf {
+  position: absolute;
+  width: 70px;
+  height: 35px;
+  background: linear-gradient(#3cb371, #145a32);
+  border-radius: 50% 0 50% 0;
+  top: 210px;
+}
 
-/* Side message */
+.leaf.left { left: -35px; transform: rotate(-30deg); }
+.leaf.right { left: 75px; transform: rotate(30deg); }
+
+/* ❤️ Heart shape positions */
+.r1 { left: 135px; top: 0; }
+.r2 { left: 40px;  top: 70px; }
+.r3 { left: 230px; top: 70px; }
+.r4 { left: 0;   top: 160px; }
+.r5 { left: 270px; top: 160px; }
+.r6 { left: 135px; top: 250px; }
+
+/* Wrap */
+.wrap {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  width: 360px;
+  height: 220px;
+  background: linear-gradient(#f4e1c1, #e0c19a);
+  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+  z-index: -1;
+}
+
+/* Ribbon */
+.ribbon {
+  position: absolute;
+  bottom: 75px;
+  left: 190px;
+  width: 42px;
+  height: 22px;
+  background: #b1121f;
+  border-radius: 12px;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: '';
+  position: absolute;
+  width: 34px;
+  height: 16px;
+  background: #b1121f;
+  border-radius: 50%;
+}
+
+.ribbon::before { left: -22px; }
+.ribbon::after { right: -22px; }
+
+/* Message */
 .message {
   color: #ffd6dc;
-  font-size: 2.4rem;
+  font-size: 2.3rem;
+  max-width: 260px;
   line-height: 1.4;
-  max-width: 280px;
-  opacity: 0;
-  transform: translateX(40px);
-  animation: messageIn 2s ease forwards;
-  animation-delay: 3s;
-  text-shadow: 0 0 15px rgba(255,120,160,0.6);
-}
-
-@keyframes messageIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Signature */
@@ -127,33 +154,8 @@ body {
   position: absolute;
   bottom: 5%;
   color: #ffd6dc;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   letter-spacing: 2px;
-  opacity: 0;
-  animation: fadeIn 2s ease forwards;
-  animation-delay: 4.5s;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* Falling petals */
-.fall {
-  position: absolute;
-  top: -30px;
-  width: 18px;
-  height: 18px;
-  background: rgba(255,180,200,0.8);
-  border-radius: 50% 50% 50% 0;
-  animation: fall linear infinite;
-}
-
-@keyframes fall {
-  to {
-    transform: translateY(120vh) rotate(360deg);
-    opacity: 0;
-  }
 }
 </style>
 </head>
@@ -164,40 +166,21 @@ body {
 
   <div class="bouquet">
 
-    <div class="rose r1">
-      <div class="petal p1"></div><div class="petal p2"></div>
-      <div class="petal p3"></div><div class="petal p4"></div>
-      <div class="petal p5"></div><div class="petal p6"></div>
-      <div class="bud"></div><div class="stem"></div>
-    </div>
+    <div class="wrap"></div>
+    <div class="ribbon"></div>
 
-    <div class="rose r2">
-      <div class="petal p1"></div><div class="petal p2"></div>
-      <div class="petal p3"></div><div class="petal p4"></div>
-      <div class="petal p5"></div><div class="petal p6"></div>
-      <div class="bud"></div><div class="stem"></div>
-    </div>
+    <!-- Heart-shaped roses -->
+    <div class="rose r1"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
 
-    <div class="rose r3">
-      <div class="petal p1"></div><div class="petal p2"></div>
-      <div class="petal p3"></div><div class="petal p4"></div>
-      <div class="petal p5"></div><div class="petal p6"></div>
-      <div class="bud"></div><div class="stem"></div>
-    </div>
+    <div class="rose r2"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
 
-    <div class="rose r4">
-      <div class="petal p1"></div><div class="petal p2"></div>
-      <div class="petal p3"></div><div class="petal p4"></div>
-      <div class="petal p5"></div><div class="petal p6"></div>
-      <div class="bud"></div><div class="stem"></div>
-    </div>
+    <div class="rose r3"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
 
-    <div class="rose r5">
-      <div class="petal p1"></div><div class="petal p2"></div>
-      <div class="petal p3"></div><div class="petal p4"></div>
-      <div class="petal p5"></div><div class="petal p6"></div>
-      <div class="bud"></div><div class="stem"></div>
-    </div>
+    <div class="rose r4"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+
+    <div class="rose r5"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+
+    <div class="rose r6"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
 
   </div>
 
@@ -208,18 +191,6 @@ body {
 </div>
 
 <div class="signature">yours dumdum</div>
-
-<script>
-function createPetal() {
-  const p = document.createElement("div");
-  p.className = "fall";
-  p.style.left = Math.random() * 100 + "vw";
-  p.style.animationDuration = (6 + Math.random() * 6) + "s";
-  document.body.appendChild(p);
-  setTimeout(() => p.remove(), 12000);
-}
-setInterval(createPetal, 350);
-</script>
 
 </body>
 </html>
