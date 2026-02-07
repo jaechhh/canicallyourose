@@ -121,26 +121,24 @@ body::before {
     clip-path: ellipse(50% 70% at 50% 50%);
 }
 
-/* Heart burst */
-.heart {
+/* Heart burst petals */
+.heartPetal {
     position: absolute;
-    width: 25px;
-    height: 25px;
-    background: red;
-    transform: rotate(45deg);
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    border-radius: 5px;
-    z-index:4;
+    width: 20px;
+    height: 30px;
+    background: #ff3399;
+    clip-path: ellipse(50% 70% at 50% 50%);
+    border-radius: 50%;
+    pointer-events: none;
     opacity: 1;
 }
 
 /* Big heart burst container */
 #bigHeartBurst {
     position: absolute;
-    width: 0; height:0;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    width: 100%; height: 100%;
+    left: 0;
+    top: 0;
     pointer-events: none;
     z-index:3;
 }
@@ -246,7 +244,7 @@ function startGame(){
             score++;
             document.getElementById('scoreBoard').innerText = 'Score: ' + score;
 
-            // Big heart burst every 10 petals
+            // Trigger big heart burst every 10 petals
             if(score % 10 === 0){
                 triggerBigHeartBurst();
             }
@@ -263,30 +261,39 @@ function triggerBigHeartBurst(){
     const container = document.getElementById('bigHeartBurst');
     container.innerHTML = ''; // clear previous burst
 
-    let centerX = window.innerWidth/2;
-    let centerY = window.innerHeight/2;
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
 
-    for(let i=0;i<50;i++){
-        let heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.style.left = centerX+'px';
-        heart.style.top = centerY+'px';
-        container.appendChild(heart);
+    // Create petals forming a heart shape
+    for(let i=0;i<80;i++){
+        let petal = document.createElement('div');
+        petal.classList.add('heartPetal');
+        container.appendChild(petal);
 
+        // Heart parametric formula: x = 16 sin^3(t), y = 13 cos(t) - 5 cos(2t) -2 cos(3t) - cos(4t)
+        let t = Math.PI * (Math.random() * 2 -1); // random angle
+        let scale = 15 + Math.random()*10;
+        let x = scale * 16 * Math.pow(Math.sin(t),3);
+        let y = -scale * (13*Math.cos(t) -5*Math.cos(2*t) -2*Math.cos(3*t) -Math.cos(4*t));
+
+        petal.style.left = (centerX + x) + 'px';
+        petal.style.top = (centerY + y) + 'px';
+
+        // Animate petals flying outward
         let angle = Math.random() * 2 * Math.PI;
-        let distance = 150 + Math.random()*150;
+        let distance = 150 + Math.random()*300;
         let dx = Math.cos(angle) * distance;
         let dy = Math.sin(angle) * distance;
 
-        heart.animate([
+        petal.animate([
             { transform: `translate(0,0) scale(1)`, opacity:1 },
             { transform: `translate(${dx}px, ${dy}px) scale(1.2)`, opacity:0 }
         ],{
-            duration: 1500 + Math.random()*500,
+            duration: 1800 + Math.random()*500,
             easing: 'ease-out'
         });
 
-        setTimeout(()=>{ heart.remove(); }, 1800);
+        setTimeout(()=>{ petal.remove(); }, 2000);
     }
 }
 </script>
