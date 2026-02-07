@@ -8,189 +8,114 @@
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle, #1a0004, #000);
+  background: #f7f1e8;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Georgia', serif;
-  overflow: hidden;
 }
 
-/* Layout */
-.scene {
+.wrapper {
   display: flex;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
 }
 
-/* Bouquet */
-.bouquet {
-  position: relative;
-  width: 420px;
-  height: 520px;
-  transform: rotate(-5deg);
-  animation: appear 2.5s ease forwards;
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: scale(0.7) rotate(-5deg); }
-  to { opacity: 1; transform: scale(1) rotate(-5deg); }
-}
-
-/* Rose (bigger) */
-.rose {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-}
-
-/* Deep red petals */
-.petal {
-  position: absolute;
-  width: 75px;
-  height: 110px;
-  left: 38px;
-  top: 20px;
-  background: radial-gradient(circle at top, #ff2b2b, #7a0000);
-  border-radius: 60% 60% 50% 50%;
-  box-shadow: 0 0 18px rgba(180, 0, 0, 0.8);
-}
-
-.p1 { transform: rotate(0deg); }
-.p2 { transform: rotate(60deg); }
-.p3 { transform: rotate(120deg); }
-.p4 { transform: rotate(180deg); }
-.p5 { transform: rotate(240deg); }
-.p6 { transform: rotate(300deg); }
-
-/* Rose center */
-.center {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  background: radial-gradient(circle, #ff6a6a, #8b0000);
-  border-radius: 50%;
-  top: 50px;
-  left: 50px;
-}
-
-/* Stem */
-.stem {
-  position: absolute;
-  width: 8px;
-  height: 260px;
-  background: linear-gradient(#2e8b57, #0b3d24);
-  top: 140px;
-  left: 71px;
-}
-
-/* Leaves */
-.leaf {
-  position: absolute;
-  width: 70px;
-  height: 35px;
-  background: linear-gradient(#3cb371, #145a32);
-  border-radius: 50% 0 50% 0;
-  top: 210px;
-}
-
-.leaf.left { left: -35px; transform: rotate(-30deg); }
-.leaf.right { left: 75px; transform: rotate(30deg); }
-
-/* ❤️ Heart shape positions */
-.r1 { left: 135px; top: 0; }
-.r2 { left: 40px;  top: 70px; }
-.r3 { left: 230px; top: 70px; }
-.r4 { left: 0;   top: 160px; }
-.r5 { left: 270px; top: 160px; }
-.r6 { left: 135px; top: 250px; }
-
-/* Wrap */
-.wrap {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  width: 360px;
-  height: 220px;
-  background: linear-gradient(#f4e1c1, #e0c19a);
-  clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
-  z-index: -1;
-}
-
-/* Ribbon */
-.ribbon {
-  position: absolute;
-  bottom: 75px;
-  left: 190px;
-  width: 42px;
-  height: 22px;
-  background: #b1121f;
-  border-radius: 12px;
-}
-
-.ribbon::before,
-.ribbon::after {
-  content: '';
-  position: absolute;
-  width: 34px;
-  height: 16px;
-  background: #b1121f;
-  border-radius: 50%;
-}
-
-.ribbon::before { left: -22px; }
-.ribbon::after { right: -22px; }
-
-/* Message */
+/* Text message */
 .message {
-  color: #ffd6dc;
-  font-size: 2.3rem;
-  max-width: 260px;
-  line-height: 1.4;
+  font-size: 2.5rem;
+  color: #7a1e1e;
+  font-family: 'Brush Script MT', cursive;
+  animation: fadeIn 3s ease forwards;
 }
 
-/* Signature */
 .signature {
-  position: absolute;
-  bottom: 5%;
-  color: #ffd6dc;
-  font-size: 1.2rem;
-  letter-spacing: 2px;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 2.8rem;
+  color: #7a1e1e;
+  font-family: 'Brush Script MT', cursive;
+}
+
+/* Bloom animation */
+.rose {
+  transform-origin: center;
+  animation: bloom 2.5s ease-out forwards;
+}
+
+@keyframes bloom {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="scene">
+<div class="wrapper">
 
-  <div class="bouquet">
+<!-- 🌹 Heart-shaped bouquet -->
+<svg width="420" height="520" viewBox="0 0 420 520">
 
-    <div class="wrap"></div>
-    <div class="ribbon"></div>
+  <defs>
+    <radialGradient id="roseGrad" cx="50%" cy="40%">
+      <stop offset="0%" stop-color="#f9b5b5"/>
+      <stop offset="100%" stop-color="#c73838"/>
+    </radialGradient>
+  </defs>
 
-    <!-- Heart-shaped roses -->
-    <div class="rose r1"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+  <!-- Roses -->
+  <g class="rose" fill="url(#roseGrad)">
+    <!-- Heart shape -->
+    <circle cx="210" cy="120" r="45"/>
+    <circle cx="170" cy="150" r="42"/>
+    <circle cx="250" cy="150" r="42"/>
 
-    <div class="rose r2"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+    <circle cx="140" cy="200" r="40"/>
+    <circle cx="280" cy="200" r="40"/>
 
-    <div class="rose r3"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+    <circle cx="170" cy="250" r="42"/>
+    <circle cx="250" cy="250" r="42"/>
 
-    <div class="rose r4"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+    <circle cx="210" cy="300" r="45"/>
+  </g>
 
-    <div class="rose r5"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+  <!-- Leaves -->
+  <g fill="#6f9b6b">
+    <ellipse cx="130" cy="210" rx="18" ry="32" transform="rotate(-30 130 210)"/>
+    <ellipse cx="290" cy="210" rx="18" ry="32" transform="rotate(30 290 210)"/>
+    <ellipse cx="180" cy="330" rx="18" ry="32" transform="rotate(-20 180 330)"/>
+    <ellipse cx="240" cy="330" rx="18" ry="32" transform="rotate(20 240 330)"/>
+  </g>
 
-    <div class="rose r6"><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="center"></div><div class="stem"></div><div class="leaf left"></div><div class="leaf right"></div></div>
+  <!-- Stems -->
+  <g stroke="#4f7b55" stroke-width="4" stroke-linecap="round">
+    <line x1="200" y1="350" x2="200" y2="450"/>
+    <line x1="220" y1="350" x2="210" y2="450"/>
+    <line x1="180" y1="350" x2="200" y2="450"/>
+    <line x1="240" y1="350" x2="210" y2="450"/>
+  </g>
 
-  </div>
+</svg>
 
-  <div class="message">
-    Happy Rose Day<br>hon 🌹
-  </div>
-
+<!-- 💌 Side message -->
+<div>
+  <div class="message">Happy Rose Day hon 🌹</div>
+  <div class="signature">Yours dumdum</div>
 </div>
 
-<div class="signature">yours dumdum</div>
+</div>
 
 </body>
 </html>
