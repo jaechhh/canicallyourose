@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You 🌹</title>
+<title>Happy Rose Day 🌹</title>
 
 <style>
 body {
@@ -17,13 +17,20 @@ body {
   perspective: 1400px;
 }
 
+/* Layout */
+.scene {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
 /* Bouquet container */
 .bouquet {
   position: relative;
   width: 500px;
-  height: 400px;
+  height: 520px;
   transform-style: preserve-3d;
-  animation: bloom 3s ease forwards, rotate 22s linear infinite;
+  animation: bloom 3s ease forwards, rotate 25s linear infinite;
   transform: scale(0);
 }
 
@@ -33,10 +40,10 @@ body {
 
 @keyframes rotate {
   from { transform: rotateY(0deg); }
-  to   { transform: rotateY(360deg); }
+  to { transform: rotateY(360deg); }
 }
 
-/* Single rose */
+/* Rose */
 .rose {
   position: absolute;
   width: 160px;
@@ -44,7 +51,7 @@ body {
   transform-style: preserve-3d;
 }
 
-/* Rose petals */
+/* Petals */
 .petal {
   position: absolute;
   width: 80px;
@@ -57,7 +64,6 @@ body {
   box-shadow: 0 0 25px rgba(255, 80, 120, 0.7);
 }
 
-/* Arrange petals */
 .p1 { transform: rotateY(0deg) translateZ(20px); }
 .p2 { transform: rotateY(60deg) translateZ(30px); }
 .p3 { transform: rotateY(120deg) translateZ(40px); }
@@ -78,12 +84,59 @@ body {
   box-shadow: 0 0 30px rgba(255, 100, 140, 0.9);
 }
 
-/* Position roses like bouquet */
-.r1 { left: 170px; top: 40px; transform: translateZ(80px); }
-.r2 { left: 80px;  top: 120px; transform: rotateY(-20deg); }
-.r3 { left: 260px; top: 120px; transform: rotateY(20deg); }
-.r4 { left: 30px;  top: 220px; transform: rotateY(-30deg); }
-.r5 { left: 330px; top: 220px; transform: rotateY(30deg); }
+/* Stem */
+.stem {
+  position: absolute;
+  width: 10px;
+  height: 200px;
+  background: linear-gradient(#2e8b57, #0b3d24);
+  left: 75px;
+  top: 130px;
+  border-radius: 10px;
+}
+
+/* Bouquet positioning */
+.r1 { left: 170px; top: 20px; }
+.r2 { left: 80px; top: 100px; }
+.r3 { left: 260px; top: 100px; }
+.r4 { left: 30px; top: 200px; }
+.r5 { left: 330px; top: 200px; }
+
+/* Side message */
+.message {
+  color: #ffd6dc;
+  font-size: 2.4rem;
+  line-height: 1.4;
+  max-width: 280px;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: messageIn 2s ease forwards;
+  animation-delay: 3s;
+  text-shadow: 0 0 15px rgba(255,120,160,0.6);
+}
+
+@keyframes messageIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Signature */
+.signature {
+  position: absolute;
+  bottom: 5%;
+  color: #ffd6dc;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 4.5s;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
 /* Falling petals */
 .fall {
@@ -102,68 +155,54 @@ body {
     opacity: 0;
   }
 }
-
-/* Signature */
-.signature {
-  position: absolute;
-  bottom: 5%;
-  color: #ffd6dc;
-  font-size: 1.4rem;
-  letter-spacing: 2px;
-  opacity: 0;
-  animation: fadeIn 2s ease forwards;
-  animation-delay: 3s;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
 </style>
 </head>
 
 <body>
 
-<!-- Bouquet -->
-<div class="bouquet">
+<div class="scene">
 
-  <!-- Rose 1 -->
-  <div class="rose r1">
-    <div class="petal p1"></div><div class="petal p2"></div>
-    <div class="petal p3"></div><div class="petal p4"></div>
-    <div class="petal p5"></div><div class="petal p6"></div>
-    <div class="bud"></div>
+  <div class="bouquet">
+
+    <div class="rose r1">
+      <div class="petal p1"></div><div class="petal p2"></div>
+      <div class="petal p3"></div><div class="petal p4"></div>
+      <div class="petal p5"></div><div class="petal p6"></div>
+      <div class="bud"></div><div class="stem"></div>
+    </div>
+
+    <div class="rose r2">
+      <div class="petal p1"></div><div class="petal p2"></div>
+      <div class="petal p3"></div><div class="petal p4"></div>
+      <div class="petal p5"></div><div class="petal p6"></div>
+      <div class="bud"></div><div class="stem"></div>
+    </div>
+
+    <div class="rose r3">
+      <div class="petal p1"></div><div class="petal p2"></div>
+      <div class="petal p3"></div><div class="petal p4"></div>
+      <div class="petal p5"></div><div class="petal p6"></div>
+      <div class="bud"></div><div class="stem"></div>
+    </div>
+
+    <div class="rose r4">
+      <div class="petal p1"></div><div class="petal p2"></div>
+      <div class="petal p3"></div><div class="petal p4"></div>
+      <div class="petal p5"></div><div class="petal p6"></div>
+      <div class="bud"></div><div class="stem"></div>
+    </div>
+
+    <div class="rose r5">
+      <div class="petal p1"></div><div class="petal p2"></div>
+      <div class="petal p3"></div><div class="petal p4"></div>
+      <div class="petal p5"></div><div class="petal p6"></div>
+      <div class="bud"></div><div class="stem"></div>
+    </div>
+
   </div>
 
-  <!-- Rose 2 -->
-  <div class="rose r2">
-    <div class="petal p1"></div><div class="petal p2"></div>
-    <div class="petal p3"></div><div class="petal p4"></div>
-    <div class="petal p5"></div><div class="petal p6"></div>
-    <div class="bud"></div>
-  </div>
-
-  <!-- Rose 3 -->
-  <div class="rose r3">
-    <div class="petal p1"></div><div class="petal p2"></div>
-    <div class="petal p3"></div><div class="petal p4"></div>
-    <div class="petal p5"></div><div class="petal p6"></div>
-    <div class="bud"></div>
-  </div>
-
-  <!-- Rose 4 -->
-  <div class="rose r4">
-    <div class="petal p1"></div><div class="petal p2"></div>
-    <div class="petal p3"></div><div class="petal p4"></div>
-    <div class="petal p5"></div><div class="petal p6"></div>
-    <div class="bud"></div>
-  </div>
-
-  <!-- Rose 5 -->
-  <div class="rose r5">
-    <div class="petal p1"></div><div class="petal p2"></div>
-    <div class="petal p3"></div><div class="petal p4"></div>
-    <div class="petal p5"></div><div class="petal p6"></div>
-    <div class="bud"></div>
+  <div class="message">
+    Happy Rose Day<br>hon 🌹
   </div>
 
 </div>
