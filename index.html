@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day 🌹</title>
+<title>Happy Rose Day 💖</title>
 
 <style>
 * {
@@ -13,7 +13,7 @@
 
 body {
   height: 100vh;
-  background: radial-gradient(circle, #145a43, #0e3b2e);
+  background: #f5efe6; /* beige */
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -21,12 +21,12 @@ body {
   font-family: "Brush Script MT", cursive;
 }
 
-/* Center message */
+/* 💌 Center text */
 .message {
   position: absolute;
-  z-index: 5;
+  z-index: 10;
   text-align: center;
-  color: white;
+  color: #7b1e3a; /* cranberry */
   animation: fadeIn 3s ease forwards;
 }
 
@@ -39,46 +39,69 @@ body {
   margin-top: 10px;
 }
 
-/* Roses */
-.rose {
+/* ❤️ Heart shape */
+.heart {
   position: absolute;
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle at top, #ff4b4b, #7a0000);
-  border-radius: 50%;
-  box-shadow: 0 0 18px rgba(180,0,0,0.8);
-  animation: infinityFloat 18s linear infinite;
+  width: 26px;
+  height: 26px;
+  background: #b11226;
+  transform: rotate(-45deg);
+  animation: infinityFloat 20s linear infinite;
   opacity: 0.8;
 }
 
-/* Different timing */
-.rose:nth-child(1) { animation-delay: 0s; }
-.rose:nth-child(2) { animation-delay: 3s; }
-.rose:nth-child(3) { animation-delay: 6s; }
-.rose:nth-child(4) { animation-delay: 9s; }
-.rose:nth-child(5) { animation-delay: 12s; }
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: #b11226;
+  border-radius: 50%;
+}
 
-/* Infinity spiral animation */
+.heart::before {
+  top: -13px;
+  left: 0;
+}
+
+.heart::after {
+  left: 13px;
+  top: 0;
+}
+
+/* ♾️ Infinity spiral movement */
 @keyframes infinityFloat {
   0% {
-    transform: translate(-200px, 200px) scale(0.6);
+    transform: translate(-300px, 200px) rotate(-45deg) scale(0.6);
     opacity: 0;
   }
   25% {
-    transform: translate(0px, -50px) scale(1);
+    transform: translate(0px, -50px) rotate(-45deg) scale(1);
     opacity: 1;
   }
   50% {
-    transform: translate(200px, 200px) scale(0.6);
+    transform: translate(300px, 200px) rotate(-45deg) scale(0.6);
   }
   75% {
-    transform: translate(0px, -350px) scale(1);
+    transform: translate(0px, -400px) rotate(-45deg) scale(1);
   }
   100% {
-    transform: translate(-200px, -700px) scale(0.4);
+    transform: translate(-300px, -800px) rotate(-45deg) scale(0.4);
     opacity: 0;
   }
 }
+
+/* 🌸 Stagger timing for full-area fill */
+.heart:nth-child(1) { animation-delay: 0s; left: 10%; }
+.heart:nth-child(2) { animation-delay: 2s; left: 20%; }
+.heart:nth-child(3) { animation-delay: 4s; left: 30%; }
+.heart:nth-child(4) { animation-delay: 6s; left: 40%; }
+.heart:nth-child(5) { animation-delay: 8s; left: 50%; }
+.heart:nth-child(6) { animation-delay: 10s; left: 60%; }
+.heart:nth-child(7) { animation-delay: 12s; left: 70%; }
+.heart:nth-child(8) { animation-delay: 14s; left: 80%; }
+.heart:nth-child(9) { animation-delay: 16s; left: 90%; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
@@ -89,14 +112,24 @@ body {
 
 <body>
 
-<!-- Floating Roses -->
-<div class="rose"></div>
-<div class="rose"></div>
-<div class="rose"></div>
-<div class="rose"></div>
-<div class="rose"></div>
+<!-- ❤️ Floating Hearts -->
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+<div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
 
-<!-- Message -->
+<!-- 💌 Message -->
 <div class="message">
   <h1>Happy Rose Day 🌹</h1>
   <p>Yours dumdum</p>
