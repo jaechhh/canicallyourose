@@ -55,7 +55,7 @@ body::before {
     font-size: 80px;
     font-weight: 900;
     line-height: 1.2;
-    color: #f5f5dc;
+    color: #f5f5dc; /* Beige text */
     text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);
     z-index: 2;
     animation: textGlow 3s infinite alternate;
@@ -75,17 +75,23 @@ body::before {
     100% { text-shadow: 0 0 10px #ff0000,0 0 20px #ff0000,0 0 30px #ff0000,0 0 40px rgba(0,0,0,0.5);}
 }
 
-/* Floating petals and flowers */
-.flower, .pet {
+/* Tap message */
+.tap {
     position: absolute;
+    bottom:30px;
+    width:100%;
+    text-align:center;
+    color:#fff;
+    font-size:20px;
+    font-weight:bold;
+    text-shadow:0 0 10px black;
+    z-index:2;
+    opacity:0.9;
 }
 
-.pet {
-    width: 20px;
-    height: 20px;
-    background: #ff3399;
-    border-radius: 50%;
-    transform-origin: bottom center;
+/* Flowers and petals */
+.flower, .pet {
+    position: absolute;
 }
 
 /* Bloom animation */
@@ -102,17 +108,17 @@ body::before {
     100% { transform: translateY(0) rotate(-15deg);}
 }
 
-/* Falling petals for game */
+/* Falling petals game */
 .fallingPetal {
     position: absolute;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 30px;
     background: #ff3399;
-    border-radius: 50%;
     cursor: pointer;
     z-index: 3;
     pointer-events: auto;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 50% 50% 50% 50%;
+    clip-path: ellipse(50% 70% at 50% 50%);
 }
 
 /* Hearts burst */
@@ -127,6 +133,8 @@ body::before {
     z-index:4;
     opacity: 1;
 }
+
+/* Score */
 #scoreBoard {
     color: #f5f5dc;
     font-size: 30px;
@@ -145,13 +153,23 @@ body::before {
 </div>
 
 <div id="scoreBoard">Score: 0</div>
+<div class="tap">Tap anywhere to start the music 🎶</div>
 
-<audio id="bgMusic" loop autoplay>
+<audio id="bgMusic" loop>
     <source src="So This Is Love.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Background flowers and floating petals
+let score = 0;
+const music = document.getElementById("bgMusic");
+
+// Play music on first tap
+document.body.addEventListener('click', () => {
+    music.play().catch(()=>{});
+    document.querySelector('.tap').style.display = 'none';
+}, { once: true });
+
+// Load background flowers and floating petals
 window.addEventListener('load', () => {
     document.body.classList.add('loaded');
     createFlowers();
@@ -159,14 +177,7 @@ window.addEventListener('load', () => {
     startGame();
 });
 
-// Music autoplay
-const music = document.getElementById("bgMusic");
-music.play().catch(()=>{});
-
-// Score
-let score = 0;
-
-// Create flowers
+// Create flowers at bottom-left
 function createFlowers(){
     for(let i=0;i<3;i++){
         let flower = document.createElement('div');
@@ -185,7 +196,7 @@ function createFlowers(){
     }
 }
 
-// Floating petals background
+// Floating petals in background
 function createFloatingPetals(){
     for(let i=0;i<15;i++){
         let petal = document.createElement('div');
@@ -197,13 +208,14 @@ function createFloatingPetals(){
     }
 }
 
-// Game: falling petals
+// Falling petals game
 function startGame(){
     function createFallingPetal(){
         let petal = document.createElement('div');
         petal.classList.add('fallingPetal');
-        petal.style.left = Math.random() * (window.innerWidth - 25) + 'px';
-        petal.style.top = '-30px';
+        petal.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+        petal.style.top = '-40px';
+        petal.style.transform = `rotate(${Math.random()*360}deg)`;
         document.body.appendChild(petal);
 
         let speed = 1 + Math.random()*2;
@@ -218,11 +230,11 @@ function startGame(){
         }
         fall();
 
-        petal.addEventListener('click',()=>{
+        petal.addEventListener('click', () => {
             score++;
-            document.getElementById('scoreBoard').innerText = 'Score: '+score;
+            document.getElementById('scoreBoard').innerText = 'Score: ' + score;
 
-            // Check burst at 10 petals
+            // Burst hearts every 10 petals
             if(score % 10 === 0){
                 burstHearts(petal);
             }
@@ -234,7 +246,7 @@ function startGame(){
     setInterval(createFallingPetal, 800);
 }
 
-// Burst hearts animation
+// Heart burst animation
 function burstHearts(petal){
     for(let i=0;i<20;i++){
         let heart = document.createElement('div');
@@ -260,5 +272,6 @@ function burstHearts(petal){
     }
 }
 </script>
+
 </body>
 </html>
