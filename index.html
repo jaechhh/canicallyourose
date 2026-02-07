@@ -13,7 +13,7 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(#0e3b2e, #145a43);
+  background: radial-gradient(circle, #145a43, #0e3b2e);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -21,57 +21,63 @@ body {
   font-family: "Brush Script MT", cursive;
 }
 
-/* 🌹 Floating Roses */
-.rose {
+/* Center message */
+.message {
   position: absolute;
-  width: 70px;
-  height: 70px;
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Rose_red.png/256px-Rose_red.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.8;
-  animation: float 14s linear infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-/* 🌸 Random placement */
-.rose:nth-child(1) { left: 10%; animation-delay: 0s; }
-.rose:nth-child(2) { left: 25%; animation-delay: 3s; }
-.rose:nth-child(3) { left: 40%; animation-delay: 6s; }
-.rose:nth-child(4) { left: 60%; animation-delay: 2s; }
-.rose:nth-child(5) { left: 75%; animation-delay: 5s; }
-.rose:nth-child(6) { left: 90%; animation-delay: 8s; }
-
-/* 💌 Center Message */
-.message-box {
-  position: relative;
-  z-index: 2;
+  z-index: 5;
   text-align: center;
-  color: #fff;
+  color: white;
   animation: fadeIn 3s ease forwards;
 }
 
-.message-box h1 {
-  font-size: 3.8rem;
-  margin-bottom: 15px;
+.message h1 {
+  font-size: 4rem;
 }
 
-.message-box p {
+.message p {
   font-size: 3rem;
-  opacity: 0.95;
+  margin-top: 10px;
+}
+
+/* Roses */
+.rose {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at top, #ff4b4b, #7a0000);
+  border-radius: 50%;
+  box-shadow: 0 0 18px rgba(180,0,0,0.8);
+  animation: infinityFloat 18s linear infinite;
+  opacity: 0.8;
+}
+
+/* Different timing */
+.rose:nth-child(1) { animation-delay: 0s; }
+.rose:nth-child(2) { animation-delay: 3s; }
+.rose:nth-child(3) { animation-delay: 6s; }
+.rose:nth-child(4) { animation-delay: 9s; }
+.rose:nth-child(5) { animation-delay: 12s; }
+
+/* Infinity spiral animation */
+@keyframes infinityFloat {
+  0% {
+    transform: translate(-200px, 200px) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(0px, -50px) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(200px, 200px) scale(0.6);
+  }
+  75% {
+    transform: translate(0px, -350px) scale(1);
+  }
+  100% {
+    transform: translate(-200px, -700px) scale(0.4);
+    opacity: 0;
+  }
 }
 
 @keyframes fadeIn {
@@ -89,10 +95,9 @@ body {
 <div class="rose"></div>
 <div class="rose"></div>
 <div class="rose"></div>
-<div class="rose"></div>
 
 <!-- Message -->
-<div class="message-box">
+<div class="message">
   <h1>Happy Rose Day 🌹</h1>
   <p>Yours dumdum</p>
 </div>
