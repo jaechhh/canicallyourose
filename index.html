@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blooming Rose Bouquets</title>
+    <style>
+        body {
+            background-color: lightgray; /* Light background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="roseCanvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('roseCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Function to plot a rose curve on the canvas
+        function plotRose(k, color, offsetX = 0, offsetY = 0, scale = 1) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            const centerX = canvas.width / 2 + offsetX;
+            const centerY = canvas.height / 2 + offsetY;
+            for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
+                const r = scale * Math.cos(k * theta);
+                const x = r * Math.cos(theta) + centerX;
+                const y = r * Math.sin(theta) + centerY;
+                if (theta === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+        }
+
+        // Plot multiple roses for a bouquet effect
+        const colors = ['red', 'pink', 'crimson', 'darkred'];
+        for (let i = 0; i < colors.length; i++) {
+            plotRose(5 + i, colors[i], (i - 1.5) * 100, 0, 1 + i * 0.2);
+        }
+
+        // Add message at the bottom
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('from yours', canvas.width / 2, canvas.height - 50);
+    </script>
+</body>
+</html>
