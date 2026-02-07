@@ -1,61 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blooming Rose Bouquets</title>
-    <style>
-        body {
-            background-color: lightgray; /* Light background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        canvas {
-            border: 1px solid #ccc;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>For You 🌹</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at center, #2b0006, #0a0002);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  perspective: 1400px;
+}
+
+/* Bouquet container */
+.bouquet {
+  position: relative;
+  width: 500px;
+  height: 400px;
+  transform-style: preserve-3d;
+  animation: bloom 3s ease forwards, rotate 22s linear infinite;
+  transform: scale(0);
+}
+
+@keyframes bloom {
+  to { transform: scale(1); }
+}
+
+@keyframes rotate {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+/* Single rose */
+.rose {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+}
+
+/* Rose petals */
+.petal {
+  position: absolute;
+  width: 80px;
+  height: 120px;
+  left: 40px;
+  top: 20px;
+  background: radial-gradient(circle at top, #ff5c8a, #8a0020);
+  border-radius: 60% 60% 50% 50%;
+  transform-origin: bottom center;
+  box-shadow: 0 0 25px rgba(255, 80, 120, 0.7);
+}
+
+/* Arrange petals */
+.p1 { transform: rotateY(0deg) translateZ(20px); }
+.p2 { transform: rotateY(60deg) translateZ(30px); }
+.p3 { transform: rotateY(120deg) translateZ(40px); }
+.p4 { transform: rotateY(180deg) translateZ(30px); }
+.p5 { transform: rotateY(240deg) translateZ(20px); }
+.p6 { transform: rotateY(300deg) translateZ(30px); }
+
+/* Bud */
+.bud {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  left: 55px;
+  top: 45px;
+  background: radial-gradient(circle at top, #ff8fab, #7a0018);
+  border-radius: 50%;
+  transform: translateZ(50px);
+  box-shadow: 0 0 30px rgba(255, 100, 140, 0.9);
+}
+
+/* Position roses like bouquet */
+.r1 { left: 170px; top: 40px; transform: translateZ(80px); }
+.r2 { left: 80px;  top: 120px; transform: rotateY(-20deg); }
+.r3 { left: 260px; top: 120px; transform: rotateY(20deg); }
+.r4 { left: 30px;  top: 220px; transform: rotateY(-30deg); }
+.r5 { left: 330px; top: 220px; transform: rotateY(30deg); }
+
+/* Falling petals */
+.fall {
+  position: absolute;
+  top: -30px;
+  width: 18px;
+  height: 18px;
+  background: rgba(255,180,200,0.8);
+  border-radius: 50% 50% 50% 0;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Signature */
+.signature {
+  position: absolute;
+  bottom: 5%;
+  color: #ffd6dc;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 3s;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+</style>
 </head>
+
 <body>
-    <canvas id="roseCanvas" width="800" height="600"></canvas>
-    <script>
-        const canvas = document.getElementById('roseCanvas');
-        const ctx = canvas.getContext('2d');
 
-        // Function to plot a rose curve on the canvas
-        function plotRose(k, color, offsetX = 0, offsetY = 0, scale = 1) {
-            ctx.strokeStyle = color;
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            const centerX = canvas.width / 2 + offsetX;
-            const centerY = canvas.height / 2 + offsetY;
-            for (let theta = 0; theta <= 2 * Math.PI; theta += 0.01) {
-                const r = scale * Math.cos(k * theta);
-                const x = r * Math.cos(theta) + centerX;
-                const y = r * Math.sin(theta) + centerY;
-                if (theta === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-            }
-            ctx.stroke();
-        }
+<!-- Bouquet -->
+<div class="bouquet">
 
-        // Plot multiple roses for a bouquet effect
-        const colors = ['red', 'pink', 'crimson', 'darkred'];
-        for (let i = 0; i < colors.length; i++) {
-            plotRose(5 + i, colors[i], (i - 1.5) * 100, 0, 1 + i * 0.2);
-        }
+  <!-- Rose 1 -->
+  <div class="rose r1">
+    <div class="petal p1"></div><div class="petal p2"></div>
+    <div class="petal p3"></div><div class="petal p4"></div>
+    <div class="petal p5"></div><div class="petal p6"></div>
+    <div class="bud"></div>
+  </div>
 
-        // Add message at the bottom
-        ctx.fillStyle = 'black';
-        ctx.font = 'bold 20px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText('from yours', canvas.width / 2, canvas.height - 50);
-    </script>
+  <!-- Rose 2 -->
+  <div class="rose r2">
+    <div class="petal p1"></div><div class="petal p2"></div>
+    <div class="petal p3"></div><div class="petal p4"></div>
+    <div class="petal p5"></div><div class="petal p6"></div>
+    <div class="bud"></div>
+  </div>
+
+  <!-- Rose 3 -->
+  <div class="rose r3">
+    <div class="petal p1"></div><div class="petal p2"></div>
+    <div class="petal p3"></div><div class="petal p4"></div>
+    <div class="petal p5"></div><div class="petal p6"></div>
+    <div class="bud"></div>
+  </div>
+
+  <!-- Rose 4 -->
+  <div class="rose r4">
+    <div class="petal p1"></div><div class="petal p2"></div>
+    <div class="petal p3"></div><div class="petal p4"></div>
+    <div class="petal p5"></div><div class="petal p6"></div>
+    <div class="bud"></div>
+  </div>
+
+  <!-- Rose 5 -->
+  <div class="rose r5">
+    <div class="petal p1"></div><div class="petal p2"></div>
+    <div class="petal p3"></div><div class="petal p4"></div>
+    <div class="petal p5"></div><div class="petal p6"></div>
+    <div class="bud"></div>
+  </div>
+
+</div>
+
+<div class="signature">yours dumdum</div>
+
+<script>
+function createPetal() {
+  const p = document.createElement("div");
+  p.className = "fall";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (6 + Math.random() * 6) + "s";
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 12000);
+}
+setInterval(createPetal, 350);
+</script>
+
 </body>
 </html>
