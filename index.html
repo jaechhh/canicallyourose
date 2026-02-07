@@ -2,138 +2,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day 💖</title>
+<title>Happy Rose Day</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: #f4efe6;
+        height: 100vh;
+        font-family: 'Georgia', serif;
+    }
 
-body {
-  height: 100vh;
-  background: #f5efe6; /* beige */
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: "Brush Script MT", cursive;
-}
+    .message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 46px;
+        color: #8b1e3f;
+        text-align: center;
+        z-index: 10;
+        animation: glow 3s infinite;
+    }
 
-/* 💌 Center text */
-.message {
-  position: absolute;
-  z-index: 10;
-  text-align: center;
-  color: #7b1e3a; /* cranberry */
-  animation: fadeIn 3s ease forwards;
-}
+    .surprise {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 26px;
+        color: #a32638;
+        opacity: 0;
+        transition: opacity 2s ease;
+        z-index: 10;
+    }
 
-.message h1 {
-  font-size: 4rem;
-}
+    @keyframes glow {
+        0%,100% { opacity: 0.85; }
+        50% { opacity: 1; }
+    }
 
-.message p {
-  font-size: 3rem;
-  margin-top: 10px;
-}
+    .rose {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        animation: float 10s linear infinite;
+        pointer-events: none;
+    }
 
-/* ❤️ Heart shape */
-.heart {
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  background: #b11226;
-  transform: rotate(-45deg);
-  animation: infinityFloat 20s linear infinite;
-  opacity: 0.8;
-}
+    .petal {
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: radial-gradient(circle at top left,
+            rgba(255,255,255,0.6),
+            var(--roseColor));
+    }
 
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  background: #b11226;
-  border-radius: 50%;
-}
+    .petal:nth-child(1){top:0;left:8px;}
+    .petal:nth-child(2){left:0;top:8px;}
+    .petal:nth-child(3){right:0;top:8px;}
+    .petal:nth-child(4){bottom:0;left:8px;}
 
-.heart::before {
-  top: -13px;
-  left: 0;
-}
+    .center {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        width: 16px;
+        height: 16px;
+        background: rgba(0,0,0,0.25);
+        border-radius: 50%;
+    }
 
-.heart::after {
-  left: 13px;
-  top: 0;
-}
+    @keyframes float {
+        from {
+            transform: translateY(120vh) rotate(0deg);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(-140vh) rotate(360deg);
+            opacity: 1;
+        }
+    }
 
-/* ♾️ Infinity spiral movement */
-@keyframes infinityFloat {
-  0% {
-    transform: translate(-300px, 200px) rotate(-45deg) scale(0.6);
-    opacity: 0;
-  }
-  25% {
-    transform: translate(0px, -50px) rotate(-45deg) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(300px, 200px) rotate(-45deg) scale(0.6);
-  }
-  75% {
-    transform: translate(0px, -400px) rotate(-45deg) scale(1);
-  }
-  100% {
-    transform: translate(-300px, -800px) rotate(-45deg) scale(0.4);
-    opacity: 0;
-  }
-}
+    .sparkle {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: rgba(255,255,255,0.9);
+        border-radius: 50%;
+        animation: sparkle 3s infinite;
+    }
 
-/* 🌸 Stagger timing for full-area fill */
-.heart:nth-child(1) { animation-delay: 0s; left: 10%; }
-.heart:nth-child(2) { animation-delay: 2s; left: 20%; }
-.heart:nth-child(3) { animation-delay: 4s; left: 30%; }
-.heart:nth-child(4) { animation-delay: 6s; left: 40%; }
-.heart:nth-child(5) { animation-delay: 8s; left: 50%; }
-.heart:nth-child(6) { animation-delay: 10s; left: 60%; }
-.heart:nth-child(7) { animation-delay: 12s; left: 70%; }
-.heart:nth-child(8) { animation-delay: 14s; left: 80%; }
-.heart:nth-child(9) { animation-delay: 16s; left: 90%; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
+    @keyframes sparkle {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0); opacity: 0; }
+    }
 </style>
 </head>
 
 <body>
 
-<!-- ❤️ Floating Hearts -->
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-<div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-
-<!-- 💌 Message -->
 <div class="message">
-  <h1>Happy Rose Day 🌹</h1>
-  <p>Yours dumdum</p>
+    Happy Rose Day<br>my dumdum 🌹
 </div>
+
+<div class="surprise" id="surprise">
+    you make my world bloom 💖
+</div>
+
+<script>
+    const colors = [
+        "#b1123c", "#ff5c8a", "#ffd1dc",
+        "#f7c948", "#fff1c1", "#c77dff"
+    ];
+
+    const roses = 140;
+    let t = 0;
+
+    for (let i = 0; i < roses; i++) {
+        const rose = document.createElement("div");
+        rose.className = "rose";
+
+        const angle = (i / roses) * Math.PI * 2;
+
+        // INFINITY HEART PATH
+        const x = Math.sin(angle) * 20;
+        const y = Math.sin(angle * 2) * 10;
+
+        rose.style.left = window.innerWidth / 2 + x * 12 + Math.random()*30 + "px";
+        rose.style.top  = window.innerHeight / 2 + y * 12 + Math.random()*30 + "px";
+
+        rose.style.animationDuration = (7 + Math.random()*6) + "s";
+
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        rose.style.setProperty("--roseColor", color);
+
+        for (let j = 0; j < 4; j++) {
+            const petal = document.createElement("div");
+            petal.className = "petal";
+            rose.appendChild(petal);
+        }
+
+        const center = document.createElement("div");
+        center.className = "center";
+        rose.appendChild(center);
+
+        document.body.appendChild(rose);
+    }
+
+    // Sparkles
+    for (let i = 0; i < 90; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = Math.random() * window.innerWidth + "px";
+        s.style.top = Math.random() * window.innerHeight + "px";
+        s.style.animationDelay = Math.random() * 3 + "s";
+        document.body.appendChild(s);
+    }
+
+    // Surprise text
+    setTimeout(() => {
+        document.getElementById("i love you").style.opacity = 1;
+    }, 4000);
+</script>
 
 </body>
 </html>
