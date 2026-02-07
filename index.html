@@ -2,178 +2,123 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Rose Day</title>
+<title>Happy Rose Day 💖</title>
 
 <style>
     body {
         margin: 0;
         overflow: hidden;
-        background: #f4efe6; /* beige */
-        height: 100vh;
+        background: black;
         font-family: 'Georgia', serif;
     }
 
-    /* Center message */
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
     .message {
         position: absolute;
         top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 44px;
-        color: #8b1e3f; /* cranberry */
         text-align: center;
-        z-index: 10;
-        animation: glow 3s infinite;
+        color: white;
+        font-size: 40px;
+        text-shadow: 0 0 12px rgba(0,0,0,0.6);
     }
 
     .sub {
         font-size: 22px;
-        margin-top: 8px;
-        color: #a32638;
+        margin-top: 10px;
     }
 
-    @keyframes glow {
-        0%,100% { opacity: 0.85; }
-        50% { opacity: 1; }
-    }
-
-    /* Rose */
-    .rose {
-        position: absolute;
-        width: 42px;
-        height: 42px;
-        animation: float 9s linear infinite;
-        pointer-events: none;
-    }
-
-    .petal {
-        position: absolute;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: radial-gradient(circle at top left,
-            rgba(255,255,255,0.6),
-            var(--roseColor));
-    }
-
-    .petal:nth-child(1){top:0;left:8px;}
-    .petal:nth-child(2){left:0;top:8px;}
-    .petal:nth-child(3){right:0;top:8px;}
-    .petal:nth-child(4){bottom:0;left:8px;}
-
-    .center {
-        position: absolute;
-        top: 13px;
-        left: 13px;
-        width: 16px;
-        height: 16px;
-        background: rgba(0,0,0,0.25);
-        border-radius: 50%;
-    }
-
-    @keyframes float {
-        from {
-            transform: translateY(110vh) rotate(0deg);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(-120vh) rotate(360deg);
-            opacity: 1;
-        }
-    }
-
-    /* Sparkles */
-    .sparkle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: rgba(255,255,255,0.9);
-        border-radius: 50%;
-        animation: sparkle 3s infinite;
-    }
-
-    @keyframes sparkle {
-        0% { transform: scale(0); opacity: 0; }
-        50% { transform: scale(1); opacity: 1; }
-        100% { transform: scale(0); opacity: 0; }
-    }
-
-    /* Music hint */
     .tap {
         position: absolute;
         bottom: 20px;
         width: 100%;
         text-align: center;
+        color: white;
+        opacity: 0.8;
         font-size: 14px;
-        color: #8b1e3f;
-        opacity: 0.7;
-        z-index: 10;
     }
 </style>
 </head>
 
 <body>
 
+<canvas id="canvas"></canvas>
+
 <div class="message">
     Happy Rose Day<br>
     my dumdum 🌹
-    <div class="sub">you make my world bloom 💖</div>
+    <div class="sub">i love youuuuu 💖</div>
 </div>
 
-<div class="tap">tap anywhere to play music 🎶</div>
+<div class="tap">tap anywhere to start the music 🎶</div>
 
-<!-- Background Music -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8f6b6c1e8c.mp3" type="audio/mpeg">
+    <source src="sothisislove.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-    const colors = [
-        "#b1123c", "#ff5c8a", "#ffd1dc",
-        "#f7c948", "#fff1c1", "#c77dff"
-    ];
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-    const totalRoses = 130;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    for (let i = 0; i < totalRoses; i++) {
-        const rose = document.createElement("div");
-        rose.className = "rose";
+const img = new Image();
+img.src = "photo.jpg"; // 👈 your image
 
-        rose.style.left = Math.random() * window.innerWidth + "px";
-        rose.style.animationDuration = (6 + Math.random() * 6) + "s";
-        rose.style.animationDelay = Math.random() * 5 + "s";
+let pixelSize = 50;
 
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        rose.style.setProperty("--roseColor", color);
+img.onload = () => {
+    const scale = Math.max(
+        canvas.width / img.width,
+        canvas.height / img.height
+    );
 
-        for (let j = 0; j < 4; j++) {
-            const petal = document.createElement("div");
-            petal.className = "petal";
-            rose.appendChild(petal);
+    const w = img.width * scale;
+    const h = img.height * scale;
+    const x = (canvas.width - w) / 2;
+    const y = (canvas.height - h) / 2;
+
+    function drawPixelated() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.drawImage(img, x, y, w, h);
+
+        for (let yy = 0; yy < canvas.height; yy += pixelSize) {
+            for (let xx = 0; xx < canvas.width; xx += pixelSize) {
+                const pixel = ctx.getImageData(xx, yy, 1, 1).data;
+                ctx.fillStyle = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+                ctx.fillRect(xx, yy, pixelSize, pixelSize);
+            }
         }
 
-        const center = document.createElement("div");
-        center.className = "center";
-        rose.appendChild(center);
-
-        document.body.appendChild(rose);
+        if (pixelSize > 1) {
+            pixelSize -= 0.4; // speed of reveal
+            requestAnimationFrame(drawPixelated);
+        }
     }
 
-    // Sparkles
-    for (let i = 0; i < 90; i++) {
-        const s = document.createElement("div");
-        s.className = "sparkle";
-        s.style.left = Math.random() * window.innerWidth + "px";
-        s.style.top = Math.random() * window.innerHeight + "px";
-        s.style.animationDelay = Math.random() * 3 + "s";
-        document.body.appendChild(s);
-    }
+    drawPixelated();
+};
 
-    // Play music on first interaction
-    document.body.addEventListener("click", () => {
-        document.getElementById("bgMusic").play();
-        document.querySelector(".tap").style.display = "none";
-    }, { once: true });
+// MUSIC PLAY (browser-safe)
+document.body.addEventListener("click", () => {
+    document.getElementById("bgMusic").play();
+    document.querySelector(".tap").style.display = "none";
+}, { once: true });
+
+window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
 </script>
 
 </body>
